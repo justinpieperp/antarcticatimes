@@ -1,0 +1,24 @@
+type Post {
+  _id: ID!
+  title: String!
+  author: User!
+  body: String!
+  description: String
+  category: Category
+  tags: [Tag]
+}
+
+extend type Query {
+  getPosts: [Post]
+}
+
+extend type Mutation {
+  createPost(
+    title: String!
+    author: String!
+    body: String!
+    description: String
+    category: String
+    tags: [String]
+  ): Post
+}

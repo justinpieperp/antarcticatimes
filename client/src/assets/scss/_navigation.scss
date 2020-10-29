@@ -1,0 +1,131 @@
+.nav-container {
+    height: 100px;
+    width: 100%;
+    background-color: $nav-bg-color;
+    color: $nav-text-color;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between; // 让几个块的间隔距离平均分开
+    z-index: 1; // z-index越大越在上层显示，会压住别的块
+
+    .logo-container {
+        font-size: 24px;
+        font-weight: bolder; // normal=400, bold=700, lighter比父元素更细， bolder
+        display: flex;
+        align-items: center; // align-items:center: 元素在行中的上下位置
+        margin-left: 30px;
+    }
+
+    .nav-icon {
+        margin-right: 20px;
+        display: none;
+
+
+            &:hover {
+                color: $text-color;
+            }
+        }
+
+    .menu-container {
+        display: flex;
+        align-items: center;
+
+        .menu-close {
+            align-self: flex-end;
+            margin: 20px 20px 10px 0px;
+            display: none;
+        }
+
+        ul {
+            margin: 0 0 0 0;
+            padding: 0;
+            border-right: 1px solid $border-color;
+            display: flex;
+            align-items: center;
+            list-style-type: none;
+
+            li {
+                font-weight: lighter;
+                margin: 0 30px 0 0;
+            }
+
+            a {
+                text-decoration: none;
+                color: $nav-text-color;
+
+                &:hover {
+                    color: $text-color;
+                }
+            }
+        }
+        
+        .menu-search {
+            margin: 0 30px;
+        }
+
+        .menu-user {
+            margin: 0 30px 0 0;
+
+
+        }
+    } 
+}
+
+@media screen and (max-width: 900px) {
+
+    .nav-container {
+        
+        .nav-icon {
+            display: flex;
+        }
+
+        .menu-container {
+            width: 500px;
+            height: 100%;
+            background-color: $nav-bg-color;
+            opacity: 0.8; // 透明度，0完全透明，1不透明
+            left: -500px; //与menu-container width联动
+            padding-top: 100px; //与nav-container height联动
+            position: fixed;
+
+            transition: 600ms left;
+            display: flex;
+            flex-direction: column;
+
+            &.active {
+                left: 0px;
+            }
+
+            .menu-close {
+                display: flex;
+            }
+
+            ul {
+                flex-direction: column;
+                width: 100%;
+                margin: 0;
+                padding: 0 20px 0 20px;
+ 
+                li {
+                    width: 100%;
+                    margin: 0;
+                    height: 60px;
+                    padding: 0 0 0 30px;
+                    border-bottom: 1px solid $border-color;
+                    display: flex;
+                    align-items: center;                 
+                }                
+            }
+
+            .menu-search {
+                display: none;
+            }
+    
+            .menu-user {
+                display: none;
+            
+            }
+
+        }
+    }
+}

@@ -1,0 +1,15 @@
+type Tag {
+  id: ID!
+  tag: String!
+  posts: [Post]
+}
+
+extend type Query {
+  getTags: [Tag]
+}
+
+extend type Mutation {
+  createTag(tag: String!): Tag
+  deleteTag(tag: String!): Tag
+  updateTag(tag: String!, updateTo: String!): Tag
+}

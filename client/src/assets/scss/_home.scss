@@ -1,0 +1,23 @@
+.home {
+
+    .banner-container {
+        width: 100%;
+        height: 600px;
+    
+        .banner{
+            width: 100%;
+            height: 100%;
+            display: flex;    
+            object-fit: cover; //图片居中剪裁，避免图片变形
+        }
+    }
+
+    .container {
+        width: 100%;
+    }
+    
+   
+}
+
+
+

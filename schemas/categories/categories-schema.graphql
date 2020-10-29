@@ -1,0 +1,15 @@
+type Category {
+  id: ID!
+  category: String!
+  posts: [Post]
+}
+
+type Query {
+  getCategories: [Category]
+}
+
+type Mutation {
+  createCategory(category: String!): Category
+  deleteCategory(category: String!): String
+  updateCategory(category: String!, updateTo: String!): Category
+}

@@ -1,0 +1,19 @@
+extend type Query {
+    getUsers: [User]
+}
+
+type User {
+    _id: ID!
+    username: String!
+    email: String!
+    password: String
+    posts: [Post]
+}
+
+extend type Mutation {
+    createUser(
+        username: String!
+        email: String!
+        password: String!
+     ): User
+}
