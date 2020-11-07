@@ -1,12 +1,5 @@
-
+# Blog 
 <!--
-*** Thanks for checking out this README Template. If you have a suggestion that would
-*** make this better, please fork the repo and create a pull request or simply open
-*** an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
-***
-***
-***
 *** To avoid retyping too much info. Do a search and replace for the following:
 *** github_username, repo_name, twitter_handle, email
 -->
@@ -35,23 +28,24 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/penguindoggy/blog">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">YOUR_TITLE</h3>
+  <h3 align="center">Personal Blog Website</h3>
 
   <p align="center">
-    YOUR_SHORT_DESCRIPTION
+    This is a blog website build from scrach.
+    
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/penguindoggy/blog"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/penguindoggy/blog">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/penguindoggy/blog/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/penguindoggy/blog/issues">Request Feature</a>
   </p>
 </p>
 
@@ -79,17 +73,18 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`
-
 
 ### Built With
 
-* []()
-* []()
-* []()
-
+- MERN Stack
+  - MongoDB
+  - Express(.js)
+  - React(.js)
+  - Node(.js)
+- GraphQL
+- Apollo Server & Apollo Client
+- SASS & HTML & Ant Design
+- ESLint
 
 
 <!-- GETTING STARTED -->
@@ -109,7 +104,7 @@ npm install npm@latest -g
 
 1. Clone the repo
 ```sh
-git clone https://github.com/github_username/repo_name.git
+git clone https://github.com/penguindoggy/blog.git
 ```
 2. Install NPM packages
 ```sh
@@ -130,7 +125,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/penguindoggy/blog/issues) for a list of proposed features (and known issues).
 
 
 
@@ -157,9 +152,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+PenguinD - penguindoggies@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/penguindoggy/blog](https://github.com/penguindoggy/blog)
 
 
 
