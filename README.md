@@ -171,16 +171,16 @@ Project Link: [https://github.com/penguindoggy/blog](https://github.com/penguind
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/penguindoggy/repo.svg?style=flat-square
-[contributors-url]: https://github.com/penguindoggy/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/penguindoggy/repo.svg?style=flat-square
-[forks-url]: https://github.com/penguindoggy/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/penguindoggy/repo.svg?style=flat-square
-[stars-url]: https://github.com/penguindoggy/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/penguindoggy/repo.svg?style=flat-square
-[issues-url]: https://github.com/penguindoggy/repo/issues
-[license-shield]: https://img.shields.io/github/license/penguindoggy/repo.svg?style=flat-square
-[license-url]: https://github.com/penguindoggy/repo/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/penguindoggy/blog.svg?style=flat-square
+[contributors-url]: https://github.com/penguindoggy/blog/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/penguindoggy/blog.svg?style=flat-square
+[forks-url]: https://github.com/penguindoggy/blog/network/members
+[stars-shield]: https://img.shields.io/github/stars/penguindoggy/blog.svg?style=flat-square
+[stars-url]: https://github.com/penguindoggy/blog/stargazers
+[issues-shield]: https://img.shields.io/github/issues/penguindoggy/blog.svg?style=flat-square
+[issues-url]: https://github.com/penguindoggy/blog/issues
+[license-shield]: https://img.shields.io/github/license/penguindoggy/blog.svg?style=flat-square
+[license-url]: https://github.com/penguindoggy/blog/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/penguindoggy
 [product-screenshot]: images/screenshot.png
