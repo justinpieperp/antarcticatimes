@@ -36,7 +36,6 @@
 
   <p align="center">
     This is a blog website build from scrach.
-    
     <br />
     <a href="https://github.com/penguindoggy/blog"><strong>Explore the docs »</strong></a>
     <br />
