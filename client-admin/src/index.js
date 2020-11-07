@@ -1,38 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
+
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import App from './App'
 import 'antd/dist/antd.css'
 import './assets/scss/base.scss'
-import BasicLayout from './Layout'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
   cache: new InMemoryCache()
 })
 
-// import { Layout } from 'antd'
-// const { Header, Footer, Sider, Content } = Layout
-// ReactDOM.render(
-//   <React.StrictMode>
-//       <ApolloProvider client={client}>
-//       <Layout>
-//         <Sider > <Sidebar /></Sider>
-//         <Layout>
-//           <Header>Header</Header>
-//           <Content>Content <App /></Content>
-//           <Footer>Footer</Footer>
-//         </Layout>
-//       </Layout>
-//       </ApolloProvider>
-//    </React.StrictMode>,
-//   document.getElementById('root')
-// )
-
 ReactDOM.render(
   <React.StrictMode>
      <ApolloProvider client={client}>
-       <BasicLayout />
+       <App />
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')

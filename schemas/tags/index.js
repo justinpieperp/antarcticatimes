@@ -10,60 +10,46 @@ const resolvers = {
 
   Mutation: {
     async createTag (_, args) {
-      try {
-        const checkTag = await Tag.findOne({ tag: args.tag }).exec()
-        if (checkTag === null) {
-          const newTag = new Tag({
-            tag: args.tag
-          })
-          const result = await newTag.save()
-          console.log('create:' + result)
-          return result
-        } else {
-          throw new Error('Tag already exists')
-        }
-      } catch (err) {
-        throw new Error('unknow err')
+      const checkTag = await Tag.findOne({ tag: args.tag }).exec()
+      if (checkTag === null) {
+        const newTag = new Tag({
+          tag: args.tag
+        })
+        const result = await newTag.save()
+        console.log('create:' + result)
+        return result
+      } else {
+        throw new Error('Tag exists')
       }
     },
 
     async deleteTag (_, args) {
-      try {
-        const checkTag = await Tag.findOne({ tag: args.tag }).exec()
-        if (checkTag === null) {
-          throw new Error("tag doesn't exist")
-        } else {
-          if (checkTag.posts.length > 0) {
-            throw new Error(
-              'tag cannot be deleted. There is at least one post under this tag.'
-            )
-          } else {
-            const doc = await Tag.findOneAndDelete({ tag: args.tag }).exec()
-            console.log('delete:' + doc)
-            return doc
-          }
-        }
-      } catch (err) {
-        throw new Error('unknow err')
+      const checkTag = await Tag.findOne({ tag: args.tag }).exec()
+      if (checkTag === null) {
+        throw new Error("Tag doesn't exist")
+      } else if (checkTag.posts.length !== 0) {
+        throw new Error(
+          'Tag cannot be deleted. There is at least one post under this tag.'
+        )
+      } else {
+        const deletedTag = await Tag.findOneAndDelete({ tag: args.tag }).exec()
+        console.log('delete:' + deletedTag)
+        return deletedTag
       }
     },
 
     async updateTag (_, args) {
-      try {
-        const checkTag = await Tag.findOne({ tag: args.tag }).exec()
-        if (checkTag !== null) {
-          const doc = await Tag.findOneAndUpdate(
-            { tag: args.tag },
-            { tag: args.updateTo },
-            { new: true }
-          ).exec()
-          console.log('update:' + doc)
-          return doc
-        } else {
-          throw new Error("Tag doesn't exist")
-        }
-      } catch (err) {
-        throw new Error('unknow err')
+      const checkTag = await Tag.findOne({ tag: args.tag }).exec()
+      if (checkTag === null) {
+        throw new Error("Tag doesn't exist")
+      } else {
+        const updatedTag = await Tag.findOneAndUpdate(
+          { tag: args.tag },
+          { tag: args.updateTo },
+          { new: true }
+        ).exec()
+        console.log('update:' + updatedTag)
+        return updatedTag
       }
     }
   }

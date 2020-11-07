@@ -1,11 +1,14 @@
+scalar Date
+
 type Post {
   _id: ID!
   title: String!
   author: User!
   body: String!
-  description: String
-  category: Category
+  category: Category!
   tags: [Tag]
+  createdAt: Date
+  updatedAt: Date
 }
 
 extend type Query {
@@ -17,8 +20,7 @@ extend type Mutation {
     title: String!
     author: String!
     body: String!
-    description: String
-    category: String
+    category: String!
     tags: [String]
   ): Post
 }

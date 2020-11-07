@@ -1,5 +1,5 @@
 type Tag {
-  id: ID!
+  _id: ID!
   tag: String!
   posts: [Post]
 }

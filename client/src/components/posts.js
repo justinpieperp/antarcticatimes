@@ -6,10 +6,16 @@ import { useQuery, gql } from '@apollo/client'
 const GET_POSTS = gql`
 query posts {
     getPosts {
+        _id
         title
+        author {
+            username
+        }
+        category {
+            category
+        }
     } 
-}
-       
+}    
 `
 export default function Posts () {
     const { loading, error, data } = useQuery(GET_POSTS)

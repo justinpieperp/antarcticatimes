@@ -1,8 +1,14 @@
 .layout-container {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 
     .sider-layout {
+        overflow: auto;
+        height: 100vh;
+        position: sticky;
+        left: 0;
+        top: 0;
+        
         li {
             margin: 0 0 12px 0;
         }
@@ -15,10 +21,10 @@
     }
     
     .site-layout{
+
         .header-layout {
             background: $layout-bg-color;
             height: 64px;
-
             margin: 0;
             padding: 0;
 
@@ -39,14 +45,23 @@
 
         .content-layout {
             background: $layout-bg-color;
-            padding: 0;
-            margin: 24px 16px;
-            padding: 24;
-            min-height: 280;          
+            height: 100%;
+            padding: 16px;
+            margin: 24px;
+            // min-height: 280;
+            
+            .table-toolbar {
+                margin-bottom: 16px;
+                float: right;
+                // display: flex;
+                // justify-content: right;
+            }
         }
 
         .footer-layout {
+            height: 104px;
             text-align: center;
+
         }
     }
 }

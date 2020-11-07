@@ -1,5 +1,5 @@
 type Category {
-  id: ID!
+  _id: ID!
   category: String!
   posts: [Post]
 }

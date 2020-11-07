@@ -15,15 +15,16 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
-  date: {
-    type: Date,
-    default: Date.now,
-    required: true
-  },
-  description: String,
+  // date: {
+  //   type: Date,
+  //   default: Date.now,
+  //   required: true
+  // },
   category: {
     type: Schema.Types.ObjectId,
-    ref: 'Category'
+    ref: 'Category',
+    required: true
+
   },
   tags: [
     {
@@ -31,6 +32,8 @@ const postSchema = new Schema({
       ref: 'Tag'
     }
   ]
-})
+},
+{ timestamps: true }
+)
 
 module.exports = mongoose.model('Post', postSchema)

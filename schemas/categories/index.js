@@ -17,58 +17,49 @@ const resolvers = {
   // please compare with tags/index.js
   Mutation: {
     async createCategory (_, args) {
-      try {
-        const checkCategory = await Category.findOne({
+      const checkCategory = await Category.findOne({
+        category: args.category
+      }).exec()
+      if (checkCategory === null) {
+        const newCategory = new Category({
           category: args.category
-        }).exec()
-        if (checkCategory === null) {
-          const newCategory = new Category({
-            category: args.category
-          })
-          return newCategory.save()
-        } else {
-          throw new Error('Category exists')
-        }
-      } catch (err) {
-        throw new Error('unknow err')
+        })
+        newCategory.save()
+        return newCategory
+      } else {
+        throw new Error('Category exists')
       }
     },
 
     async deleteCategory (_, args) {
-      try {
-        const checkPost = await Category.findOne({
-          category: args.category
-        }).exec()
-        if (checkPost.posts.length === 0) {
-          Category.findOneAndDelete({ category: args.category }).exec()
-          return 'Category is deleted successfully'
-        } else {
-          throw new Error(
-            'Catogery cannot be deleted. There is at least one post under this category.'
-          )
-        }
-      } catch (err) {
-        throw new Error('unknow err')
+      const checkCategory = await Category.findOne({ category: args.category }).exec()
+      if (checkCategory === null) {
+        throw new Error("Category doesn't exist")
+      } else if (checkCategory.posts.length !== 0) {
+        throw new Error(
+          'Catogery cannot be deleted. There is at least one post under this category.'
+        )
+      } else {
+        const deletedCategory = await Category.findOneAndDelete({ category: args.category }).exec()
+        console.log('delete:' + deletedCategory)
+        return deletedCategory
+        // return 'Category has been deleted'
       }
     },
 
     async updateCategory (_, args) {
-      try {
-        const checkCategory = await Category.findOne({
-          category: args.category
-        }).exec()
-        if (checkCategory !== null) {
-          const updatedCategory = await Category.findOneAndUpdate(
-            { category: args.category },
-            { category: args.updateTo },
-            { new: true }
-          ).exec()
-          return updatedCategory
-        } else {
-          throw new Error('Cannot find the category.')
-        }
-      } catch (err) {
-        throw new Error('unknow err')
+      const checkCategory = await Category.findOne({
+        category: args.category
+      }).exec()
+      if (checkCategory === null) {
+        throw new Error("Category doesn't exist.")
+      } else {
+        const updatedCategory = await Category.findOneAndUpdate(
+          { category: args.category },
+          { category: args.updateTo },
+          { new: true }
+        ).exec()
+        return updatedCategory
       }
     }
   }
