@@ -1,6 +1,6 @@
 .layout-container {
-    width: 100vw;
-    min-height: 100vh;
+    width: 100%;
+    min-height: 100%;
 
     .sider-layout {
         overflow: auto;
@@ -24,34 +24,25 @@
 
         .header-layout {
             background: $layout-bg-color;
-            height: 64px;
+            height: 48px;
             margin: 0;
-            padding: 0;
+            padding: 0 16px;
 
-            .trigger {
-                font-size: 18px;
-                justify-content: center;
-                margin-left: 16px;
-                padding: 0;
-                border: 0;
-                cursor: pointer;
-                transition: color 0.3s;
-            }
-              
-            // .trigger:hover {
-            //     color: #1890ff;
-            // }       
+            .header-toolbar {
+                float: right;
+                height: 100%;
+            }     
         }
 
         .content-layout {
             background: $layout-bg-color;
             height: 100%;
-            padding: 16px;
+            padding: 0 24px;
             margin: 24px;
             // min-height: 280;
             
             .table-toolbar {
-                margin-bottom: 16px;
+                padding: 24px 0;
                 float: right;
                 // display: flex;
                 // justify-content: right;
@@ -59,7 +50,7 @@
         }
 
         .footer-layout {
-            height: 104px;
+            height: 80px;
             text-align: center;
 
         }

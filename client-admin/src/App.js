@@ -1,23 +1,19 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
-import { Layout } from 'antd'
-import Sider from './layouts/sider'
 import { Dashboard, User, Post, Category, Tag } from './pages'
+import { Sider, Header, Footer } from './layouts'
+import { Layout } from 'antd'
 
 function App () {
-  const { Header, Footer, Content } = Layout
+  const { Content } = Layout
 
   return (
     <Router>
       <div>
         <Layout className="layout-container">
           <Sider />
-
           <Layout className="site-layout">
-            <Header className="header-layout">
-            </Header>
-
+            <Header />
             <Content className="content-layout">
               <Switch>
                 <Route path="/" exact component={Dashboard} />
@@ -28,13 +24,11 @@ function App () {
                 <Route path="/tag" component={Tag} />
               </Switch>
             </Content>
-
-            <Footer className="footer-layout">Footer</Footer>
+            <Footer />
           </Layout>
         </Layout>
       </div>
     </Router>
-
   )
 }
 
