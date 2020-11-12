@@ -60,6 +60,9 @@ const columns = [
     title: 'Created',
     dataIndex: 'createdAt',
     key: 'createdAt',
+    defaultSortOrder: 'ascend',
+    sorter: (a, b) => a.updatedAt - b.updatedAt,
+    sortDirections: ['ascend', 'descend', 'ascend'],
     width: 168,
     render: function ID (text) {
       return <div>{new Date(text).toDateString()}</div>
