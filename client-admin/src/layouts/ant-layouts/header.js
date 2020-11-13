@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Space, Button, Layout, Input } from 'antd'
 import { SearchOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons'
+
+// import { LoginForm } from '../pages'
 
 const Header = () => {
   const [searchInput, showSearchInput] = useState(false)
@@ -15,7 +18,9 @@ const Header = () => {
                     style={{ borderBottom: 'solid 1px' }}/>
               : null }
             <Button type="text" shape="circle" icon={<HomeOutlined />} />
-            <Button type="text" shape="circle" icon={<UserOutlined />} />
+            <Button type="text" shape="circle" icon={<UserOutlined />}>
+              <Link to='/login' />
+            </Button>
         </Space>
     </Layout.Header>
   )

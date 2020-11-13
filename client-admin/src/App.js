@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Dashboard, User, Post, Category, Tag } from './pages'
-import { Sider, Header, Footer } from './layouts'
+import { Dashboard, User, Post, Category, Tag, Login } from './pages'
+import { Sider, Header, Footer, TableToolbar } from './layouts'
 import { Layout } from 'antd'
 
 function App () {
@@ -10,23 +10,25 @@ function App () {
   return (
     <Router>
       <div>
+      <Switch>
+      <Route path="/login" component={Login}/>
         <Layout className="layout-container">
           <Sider />
           <Layout className="site-layout">
             <Header />
             <Content className="content-layout">
-              <Switch>
+              <TableToolbar />
                 <Route path="/" exact component={Dashboard} />
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/user" component={User} />
                 <Route path="/post" component={Post} />
                 <Route path="/category" component={Category} />
                 <Route path="/tag" component={Tag} />
-              </Switch>
-            </Content>
+              </Content>
             <Footer />
           </Layout>
         </Layout>
+        </Switch>
       </div>
     </Router>
   )

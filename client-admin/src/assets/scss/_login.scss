@@ -1,0 +1,18 @@
+@media screen and (min-width: 480px){
+    .login-form {
+        width: 368px;
+        height: 246px;
+        position: absolute;
+        margin: auto;
+        top: 0; left: 0; bottom: 0; right: 0;
+
+        .login-form-forgot {
+            float: right;
+        }
+
+        .login-form-button {
+            width: 100%;
+            margin-bottom: 24px;
+        }
+    }
+}
