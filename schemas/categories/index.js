@@ -1,5 +1,5 @@
 // const { gql } = require('apollo-server-express');
-const Category = require('../../database/models/category')
+const Category = require('../../modules/models/category')
 const fs = require('fs')
 
 const resolvers = {

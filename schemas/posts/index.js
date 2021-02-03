@@ -1,4 +1,4 @@
-const { Post, User, Category, Tag } = require('../../database')
+const { Post, User, Category, Tag } = require('../../modules/index')
 const fs = require('fs')
 
 const resolvers = {

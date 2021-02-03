@@ -1,4 +1,4 @@
-const Tag = require('../../database/models/tag')
+const Tag = require('../../modules/models/tag')
 const fs = require('fs')
 
 const resolvers = {

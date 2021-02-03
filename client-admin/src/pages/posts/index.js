@@ -37,7 +37,7 @@ const Post = () => {
     <Table
       columns={columns}
       dataSource={data.getPosts}
-      // x方向的滚动条，max-content使横向展开到最大
+      // scroll: x方向的滚动条，max-content使横向展开到最大
       scroll={{ x: 'max-content' }}
       // Default position: 'bottomRight', pageSize: '10'
       // pagination={{ position: 'bottomRight', pageSize: '7' }}

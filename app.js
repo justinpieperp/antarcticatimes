@@ -1,7 +1,7 @@
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
 const { resolvers, typeDefs } = require('./schemas')
-require('./database/db-config')
+require('./utils/db-config')
 
 const { GraphQLScalarType } = require('graphql')
 const { Kind } = require('graphql/language')
