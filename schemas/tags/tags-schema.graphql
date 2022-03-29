@@ -6,6 +6,7 @@ type Tag {
 
 extend type Query {
   getTags: [Tag]
+  getTagById(id: ID!): Tag
 }
 
 extend type Mutation {

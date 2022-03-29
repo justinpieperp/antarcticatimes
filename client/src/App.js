@@ -1,11 +1,7 @@
 import React from 'react'
 import Navigation from './components/navigation'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
-import Home from './pages/home'
-import Blog from './pages/blog'
-import About from './pages/about'
-import SignIn from './pages/signin'
+import { Home, Posts, About, SignIn } from './pages/'
 
 function App () {
     return (
@@ -15,7 +11,7 @@ function App () {
                 <Switch>
                     <Route path="/" exact component={Home} />
                     <Route path="/home" component={Home} />
-                    <Route path="/blog" component={Blog} />
+                    <Route path="/posts" component={Posts} />
                     <Route path="/about" component={About} />
                     <Route path="/signin" component={SignIn} />
                     {/* <Route page='/:page' component={PageRendered} />

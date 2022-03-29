@@ -1,131 +1,384 @@
 .nav-container {
-    height: 100px;
-    width: 100%;
-    background-color: $nav-bg-color;
-    color: $nav-text-color;
-    font-size: 18px;
-    display: flex;
-    justify-content: space-between; // 让几个块的间隔距离平均分开
-    z-index: 1; // z-index越大越在上层显示，会压住别的块
+  height: 65px;
+  width: 100%;
+  background-color: white;
+  color: $text-color;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between; // 让几个块的间隔距离平均分开
+  position: fixed;
+  top: 0;
+  z-index: 100; // z-index越大越在上层显示，会压住别的块
 
-    .logo-container {
-        font-size: 24px;
-        font-weight: bolder; // normal=400, bold=700, lighter比父元素更细， bolder
-        display: flex;
-        align-items: center; // align-items:center: 元素在行中的上下位置
-        margin-left: 30px;
+  .logo-container {
+    font-size: 24px;
+    font-weight: bolder; // normal=400, bold=700, lighter比父元素更细， bolder
+    display: flex;
+    align-items: center; // align-items:center: 元素在行中的上下位置
+    margin-left: 30px;
+  }
+
+  .nav-icon {
+    margin-right: 20px;
+    display: none;
+
+    &:hover {
+      color: $text-color;
+    }
+  }
+
+  .menu-container {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+
+    .menu-close {
+      align-self: flex-end;
+      margin: 20px 20px 10px 0px;
+      display: none;
     }
 
-    .nav-icon {
-        margin-right: 20px;
-        display: none;
+    ul {
+      // border-right: 1px solid $border-color;
 
+      height: 100%;
+      margin-block-start: 0;
+      margin-block-end: 0;
+      padding-inline-start: 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      list-style-type: none;
+      margin: 0 20px 0 50px;
 
-            &:hover {
-                color: $text-color;
-            }
+      a {
+        font-weight: lighter;
+        text-decoration: none;
+        padding: 0 20px 0 20px;
+        font-size: 20px;
+        color: $text-color;
+
+        &:hover {
+          color: $text-link;
         }
+      }
+    }
 
-    .menu-container {
-        display: flex;
-        align-items: center;
+    .menu-search {
+      margin: 0 30px;
+    }
 
-        .menu-close {
-            align-self: flex-end;
-            margin: 20px 20px 10px 0px;
-            display: none;
-        }
-
-        ul {
-            margin: 0 0 0 0;
-            padding: 0;
-            border-right: 1px solid $border-color;
-            display: flex;
-            align-items: center;
-            list-style-type: none;
-
-            li {
-                font-weight: lighter;
-                margin: 0 30px 0 0;
-            }
-
-            a {
-                text-decoration: none;
-                color: $nav-text-color;
-
-                &:hover {
-                    color: $text-color;
-                }
-            }
-        }
-        
-        .menu-search {
-            margin: 0 30px;
-        }
-
-        .menu-user {
-            margin: 0 30px 0 0;
-
-
-        }
-    } 
+    .menu-user {
+      margin: 0 30px 0 0;
+    }
+  }
 }
 
 @media screen and (max-width: 900px) {
-
-    .nav-container {
-        
-        .nav-icon {
-            display: flex;
-        }
-
-        .menu-container {
-            width: 500px;
-            height: 100%;
-            background-color: $nav-bg-color;
-            opacity: 0.8; // 透明度，0完全透明，1不透明
-            left: -500px; //与menu-container width联动
-            padding-top: 100px; //与nav-container height联动
-            position: fixed;
-
-            transition: 600ms left;
-            display: flex;
-            flex-direction: column;
-
-            &.active {
-                left: 0px;
-            }
-
-            .menu-close {
-                display: flex;
-            }
-
-            ul {
-                flex-direction: column;
-                width: 100%;
-                margin: 0;
-                padding: 0 20px 0 20px;
- 
-                li {
-                    width: 100%;
-                    margin: 0;
-                    height: 60px;
-                    padding: 0 0 0 30px;
-                    border-bottom: 1px solid $border-color;
-                    display: flex;
-                    align-items: center;                 
-                }                
-            }
-
-            .menu-search {
-                display: none;
-            }
-    
-            .menu-user {
-                display: none;
-            
-            }
-
-        }
+  .nav-container {
+    .nav-icon {
+      display: flex;
     }
+
+    .menu-container {
+      width: 300px;
+      height: calc(100% - 65px);
+      // background-color: $nav-bg-color;
+      // opacity: 0.8; // 透明度，0完全透明，1不透明
+      background: white;
+      position: fixed;
+      left: -300px; //与menu-container width联动
+      padding-top: 100px; //与nav-container height联动
+      transition: 300ms ease left;
+      flex-direction: column-reverse;
+
+      &.active {
+        left: 0px;
+      }
+
+      .menu-close {
+        display: flex;
+      }
+
+      ul {
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        margin: 0;
+        padding: 0 20px 0 20px;
+
+        li {
+          width: 100%;
+          margin: 0;
+          height: 65px;
+          text-align: left;
+          padding: 0 0 0 30px;
+          border-bottom: 1px solid $border-color;
+          display: flex;
+          align-items: center;
+        }
+
+        a {
+          padding: 20px 15px;
+          width: 100%;
+        }
+      }
+
+      .menu-search {
+        display: none;
+      }
+
+      .menu-user {
+        display: none;
+      }
+    }
+  }
 }
+
+// .site-navigation {
+//   background: white;
+//   height: 65px;
+//   width: 100%;
+//   display: flex;
+//   justify-content: space-between;
+//   color: $text-color;
+//   position: fixed;
+//   z-index: 100;
+//   top: 0;
+
+//   .ion-ios-menu {
+//     font-size: 36px;
+//     width: 65px;
+//     align-items: center;
+//     cursor: pointer;
+//     display: none;
+//   }
+
+//   .menu-content-container {
+//     display: flex;
+//     align-items: center;
+//     margin-right: 30px;
+
+//     .ant-avatar {
+//       background-color: $background;
+//       border: 1px solid $border;
+//     }
+
+//     .menu-avatar-name {
+//       font-size: 18px;
+//       margin-left: 15px;
+//     }
+//   }
+
+//   .menu-title {
+//     font-weight: 500;
+//     font-size: 22px;
+//     height: 100%;
+//     display: flex;
+//     align-items: center;
+//     margin-left: 30px;
+//   }
+
+//   ul {
+//     height: 100%;
+//     margin-block-start: 0;
+//     margin-block-end: 0;
+//     padding-inline-start: 0;
+//     display: flex;
+//     justify-content: flex-end;
+//     align-items: center;
+//     list-style-type: none;
+//     margin: 0 20px 0 50px;
+
+//     a {
+//       text-decoration: none;
+//       padding: 0 20px 0 20px;
+//       font-size: 20px;
+//       color: $text-color;
+
+//       &:hover {
+//         color: $text-link;
+//       }
+//     }
+//   }
+// }
+
+// @media screen and (max-width: 900px) {
+//   .site-navigation {
+//     .menu-content-container {
+//       width: 300px;
+//       height: calc(100% - 65px);
+//       background: white;
+//       position: fixed;
+//       top: 65px;
+//       left: -300px;
+//       transition: 300ms ease left;
+//       flex-direction: column-reverse;
+
+//       ul {
+//         flex-direction: column;
+//         justify-content: flex-start;
+
+//         li {
+//           text-align: left;
+//           height: 65px;
+//           display: flex;
+//           align-items: center;
+//         }
+//         a {
+//           padding: 20px 15px;
+//           width: 100%;
+//         }
+//       }
+
+//       ul,
+//       li,
+//       .menu-avatar-container {
+//         width: 100%;
+//       }
+
+//       .ant-avatar {
+//         align-self: flex-start;
+//         margin-left: 30px;
+//       }
+//     }
+//     &.active {
+//       .menu-content-container {
+//         left: 0px;
+//       }
+//     }
+//     .ion-ios-menu {
+//       display: flex;
+//     }
+//   }
+// }
+
+// // .nav-container {
+// //     height: 100px;
+// //     width: 100%;
+// //     background-color: $nav-bg-color;
+// //     color: $nav-text-color;
+// //     font-size: 18px;
+// //     display: flex;
+// //     justify-content: space-between; // 让几个块的间隔距离平均分开
+// //     z-index: 1; // z-index越大越在上层显示，会压住别的块
+
+// //     .logo-container {
+// //         font-size: 24px;
+// //         font-weight: bolder; // normal=400, bold=700, lighter比父元素更细， bolder
+// //         display: flex;
+// //         align-items: center; // align-items:center: 元素在行中的上下位置
+// //         margin-left: 30px;
+// //     }
+
+// //     .nav-icon {
+// //         margin-right: 20px;
+// //         display: none;
+
+// //             &:hover {
+// //                 color: $text-color;
+// //             }
+// //         }
+
+// //     .menu-container {
+// //         display: flex;
+// //         align-items: center;
+
+// //         .menu-close {
+// //             align-self: flex-end;
+// //             margin: 20px 20px 10px 0px;
+// //             display: none;
+// //         }
+
+// //         ul {
+// //             margin: 0 0 0 0;
+// //             padding: 0;
+// //             border-right: 1px solid $border-color;
+// //             display: flex;
+// //             align-items: center;
+// //             list-style-type: none;
+
+// //             li {
+// //                 font-weight: lighter;
+// //                 margin: 0 30px 0 0;
+// //             }
+
+// //             a {
+// //                 text-decoration: none;
+// //                 color: $nav-text-color;
+
+// //                 &:hover {
+// //                     color: $text-color;
+// //                 }
+// //             }
+// //         }
+
+// //         .menu-search {
+// //             margin: 0 30px;
+// //         }
+
+// //         .menu-user {
+// //             margin: 0 30px 0 0;
+
+// //         }
+// //     }
+// // }
+
+// // @media screen and (max-width: 900px) {
+
+// //     .nav-container {
+
+// //         .nav-icon {
+// //             display: flex;
+// //         }
+
+// //         .menu-container {
+// //             width: 500px;
+// //             height: 100%;
+// //             background-color: $nav-bg-color;
+// //             opacity: 0.8; // 透明度，0完全透明，1不透明
+// //             left: -500px; //与menu-container width联动
+// //             padding-top: 100px; //与nav-container height联动
+// //             position: fixed;
+
+// //             transition: 600ms left;
+// //             display: flex;
+// //             flex-direction: column;
+
+// //             &.active {
+// //                 left: 0px;
+// //             }
+
+// //             .menu-close {
+// //                 display: flex;
+// //             }
+
+// //             ul {
+// //                 flex-direction: column;
+// //                 width: 100%;
+// //                 margin: 0;
+// //                 padding: 0 20px 0 20px;
+
+// //                 li {
+// //                     width: 100%;
+// //                     margin: 0;
+// //                     height: 60px;
+// //                     padding: 0 0 0 30px;
+// //                     border-bottom: 1px solid $border-color;
+// //                     display: flex;
+// //                     align-items: center;
+// //                 }
+// //             }
+
+// //             .menu-search {
+// //                 display: none;
+// //             }
+
+// //             .menu-user {
+// //                 display: none;
+
+// //             }
+
+// //         }
+// //     }
+// // }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Dashboard, User, Post, Category, Tag, Login } from './pages'
+import { Dashboard, User, Post, Category, Tags, Login, CreateTag } from './pages'
 import { Sider, Header, Footer, TableToolbar } from './layouts'
 import { Layout } from 'antd'
 
@@ -23,7 +23,9 @@ function App () {
                 <Route path="/user" component={User} />
                 <Route path="/post" component={Post} />
                 <Route path="/category" component={Category} />
-                <Route path="/tag" component={Tag} />
+                <Route path="/tags" component={Tags} />
+                <Route path="/tag/create" component={CreateTag} />
+
               </Content>
             <Footer />
           </Layout>

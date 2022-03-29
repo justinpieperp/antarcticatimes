@@ -4,7 +4,9 @@ type Post {
   _id: ID!
   title: String!
   author: User!
+  description: String
   body: String!
+  image: String
   category: Category!
   tags: [Tag]
   createdAt: Date
@@ -19,7 +21,9 @@ extend type Mutation {
   createPost(
     title: String!
     author: String!
+    description: String!
     body: String!
+    image: String
     category: String!
     tags: [String]
   ): Post

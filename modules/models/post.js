@@ -11,20 +11,23 @@ const postSchema = new Schema({
     ref: 'User',
     required: true
   },
+  description: {
+    type: String,
+    required: false
+  },
   body: {
     type: String,
     required: true
   },
-  // date: {
-  //   type: Date,
-  //   default: Date.now,
-  //   required: true
-  // },
+  image: {
+    type: String,
+    default: 'n95.jpg',
+    required: false
+  },
   category: {
     type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true
-
   },
   tags: [
     {

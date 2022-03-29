@@ -1,19 +1,18 @@
 extend type Query {
-    getUsers: [User]
+  getUsers: [User]
 }
 
 type User {
-    _id: ID!
-    username: String!
-    email: String!
-    password: String
-    posts: [Post]
+  _id: ID!
+  username: String!
+  email: String!
+  password: String
+  posts: [Post]
 }
 
 extend type Mutation {
-    createUser(
-        username: String!
-        email: String!
-        password: String!
-     ): User
+  createUser(username: String!, email: String!, password: String!): User
+
+  deleteUser(tag: String!): String
+  updateUser(tag: String!, updateTo: String!): User
 }

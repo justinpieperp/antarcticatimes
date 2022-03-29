@@ -6,10 +6,7 @@ const TableToolbar = () => {
   return (
     <Space className='table-toolbar'>
       <Button type="primary" icon={<PlusOutlined />}>Add</Button>
-      <Button type="primary" icon={<PlusOutlined />}>undecided</Button>
-      <Button type="primary" icon={<PlusOutlined />}>undecided</Button>
     </Space>
-
   )
 }
 

@@ -7,12 +7,12 @@ import {
   MenuFoldOutlined,
   PieChartOutlined,
   DesktopOutlined,
-  ContainerOutlined
-  // MailOutlined
+  ContainerOutlined,
+  MailOutlined
 } from '@ant-design/icons'
 
 const Sider = () => {
-  // const { SubMenu } = Menu
+  const { SubMenu } = Menu
 
   const [collapsed, setCollapsed] = useState(false)
   const toggleCollapsed = () => setCollapsed(!collapsed)
@@ -41,14 +41,17 @@ const Sider = () => {
           <Menu.Item key="4" icon={<ContainerOutlined />}>
             <Link to='/category'>Categories</Link>
           </Menu.Item>
-          <Menu.Item key="5" icon={<ContainerOutlined />}>
-            <Link to='/tag'>Tags</Link>
-          </Menu.Item>
-          {/* <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
-          </SubMenu> */}
+          {/* <Menu.Item key="5" icon={<ContainerOutlined />}>
+            <Link to='/tags'>Tags</Link>
+          </Menu.Item> */}
+          <SubMenu key="sub1" icon={<MailOutlined />} title="tags">
+            <Menu.Item key="sub1-1" icon={<ContainerOutlined />}>
+              <Link to='/tags'>Tag List</Link>
+            </Menu.Item>
+            <Menu.Item key="sub1-2" icon={<ContainerOutlined />}>
+              <Link to='/tag/create'>Create New Tag</Link>
+            </Menu.Item>
+          </SubMenu>
           {/* <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
             <Menu.Item key="9">Option 9</Menu.Item>
             <Menu.Item key="10">Option 10</Menu.Item>

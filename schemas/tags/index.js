@@ -3,27 +3,32 @@ const fs = require('fs')
 
 const resolvers = {
   Query: {
-    getTags () {
+    getTags: () => {
       return Tag.find().populate('posts')
+    },
+
+    getTagById: async ({ id }) => {
+      const tag = await Tag.findById(id)
+      return tag
     }
   },
 
   Mutation: {
-    async createTag (_, args) {
+    createTag: async (_, args) => {
       const checkTag = await Tag.findOne({ tag: args.tag }).exec()
       if (checkTag === null) {
         const newTag = new Tag({
           tag: args.tag
         })
         const result = await newTag.save()
-        console.log('create:' + result)
+        console.log('created a new tag:' + result)
         return result
       } else {
         throw new Error('Tag exists')
       }
     },
 
-    async deleteTag (_, args) {
+    deleteTag: async (_, args) => {
       const checkTag = await Tag.findOne({ tag: args.tag }).exec()
       if (checkTag === null) {
         throw new Error("Tag doesn't exist")
@@ -38,7 +43,7 @@ const resolvers = {
       }
     },
 
-    async updateTag (_, args) {
+    updateTag: async (_, args) => {
       const checkTag = await Tag.findOne({ tag: args.tag }).exec()
       if (checkTag === null) {
         throw new Error("Tag doesn't exist")

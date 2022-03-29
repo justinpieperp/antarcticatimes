@@ -1,13 +1,51 @@
-@import './variables';
-@import './navigation';
-@import './home';
+@import "./variables";
+@import "./navigation";
+@import "./home";
+@import "./masonry-post";
+@import "./post-masonry";
+@import "./tag-row";
+@import "./post-grid";
+@import "./post";
+@import "./post-editor";
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  // -apple-system, BlinkMacSystemFont解决mac-chrome下font-weight无效问题
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  // family-name字体族名: Times, "Times New Roman" 有空格时要加引号
+  // generic-name通用字体族名: serif带衬线字体, sans-serif无衬线, monospace等宽, cursive草书, fantasy艺术效果, system-ui, math, emoji, fangsong
+  font-weight: 500;
+  margin: 0;
+  background-color: #f8f9fa;
+}
 
-html body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    // -apple-system, BlinkMacSystemFont解决mac-chrome下font-weight无效问题
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    // family-name字体族名: Times, "Times New Roman" 有空格时要加引号
-    // generic-name通用字体族名: serif带衬线字体, sans-serif无衬线, monospace等宽, cursive草书, fantasy艺术效果, system-ui, math, emoji, fangsong
-    background-color: yellowgreen;
+h1 {
+  font-size: 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row {
+  margin: 4em 20px;
+}
+
+.overlay::before {
+  z-index: 1;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 18%,
+    rgba(0, 0, 0, 0.8) 99%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
 }
