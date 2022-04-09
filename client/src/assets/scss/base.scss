@@ -27,10 +27,17 @@ h1 {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  min-height: 85vh;
 }
 
 .row {
   margin: 4em 20px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .overlay::before {

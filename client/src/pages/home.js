@@ -1,70 +1,39 @@
 import React from 'react'
-import { MasonryPost, PostMasonry, PostGrid } from '../components/common'
 import { useQuery } from '@apollo/client'
-import { GET_POSTS } from '../queries/posts'
-
-// const featuredConfig = {
-//     0: {
-//         gridArea: '1 / 1 / 2 / 3',
-//         height: '300px'
-//     },
-//     1: {
-//         height: '300px'
-//     },
-//     3: {
-//         height: '630px',
-//         marginLeft: '30px',
-//         width: '630px'
-//     }
-// }
-
-// const trendingConfig = {
-//     1: {
-//         gridArea: ' 1 / 2 / 3 / 3'
-//     }
-// }
-
-// function addStyle (data) {
-//     const posts = [...data]
-//     posts.map((post, index) => {
-//         post.style = featuredConfig[index]
-//     })
-//     return posts
-// }
-
-// const mergeStyles = function (posts, config) {
-//     posts.forEach((post, index) => {
-//         post.style = config[index]
-//     })
-// }
-
-// const recentPosts = [...trending, ...featured, ...featured]
+import { Spin } from 'antd'
+import { PostMasonry, PostGrid, MasonryPost } from '../components/common'
+import { GET_POSTS, GET_POST_SORT_BY_DATE } from '../queries/posts'
+import { trendingConfig, featuredConfig } from '../components/styles'
 
 function Home () {
-    const { loading, error, data } = useQuery(GET_POSTS)
-    if (loading) return <p>Loading ...</p>
-    if (error) return new Error(error)
+    const allPostsQuery = useQuery(GET_POSTS)
+    const recentPostsQuery = useQuery(GET_POST_SORT_BY_DATE)
+    if (allPostsQuery.loading || recentPostsQuery.loading) return <Spin className='center' tip="Loading..." />
+    if (allPostsQuery.error) return new Error(allPostsQuery.error)
+    if (recentPostsQuery.error) return new Error(recentPostsQuery.error)
 
-    const posts = data.getPosts
-    const featured = [...posts.slice(0, 4)]
+    const allPosts = allPostsQuery.data.getPosts
+    const recentPosts = recentPostsQuery.data.getPostSortByDate
+    const featuredPosts = allPosts.slice(0, 8)
+    const trendingPosts = allPosts.slice(0, 4)
 
-    // const styledFeatured = useMemo(() => {
-    //     return addStyle(featured)
-    // }, [addStyle, featured])
-    // const styledFeatured = addStyle(featured)
+    const styledTrendingPosts = trendingPosts.map((post, index) => (
+        { ...post, style: trendingConfig[index] }
+    ))
+    const lastTrending = styledTrendingPosts.pop()
 
-    // mergeStyles([...featured], featuredConfig)
-    const lastFeatured = featured.pop()
-
-    // mergeStyles(trending, trendingConfig)
+    const styledFeaturedPosts = featuredPosts.map((post, index) => (
+        { ...post, style: featuredConfig[index] }
+    ))
 
     return (
         <main className='home'>
             <section className='container'>
                 <div className='row'>
-                    <div className='featured-posts-container'>
-                        <PostMasonry posts={featured} columns={2} tagsOnTop={true} />
-                        <MasonryPost post={lastFeatured} tagsOnTop={true} />
+                    <h2>Trending Posts</h2>
+                    <div className='trending-posts-container'>
+                        <PostMasonry posts={styledTrendingPosts} columns={2} tagsOnTop={true} />
+                        <MasonryPost post={lastTrending} tagsOnTop={true} />
                     </div>
                 </div>
             </section>
@@ -72,19 +41,19 @@ function Home () {
             <section className="bg-white">
                 <section className="container">
                     <div className="row">
-                        <h1>Recent Posts</h1>
-                        <PostGrid posts={posts} />
+                        <h2>Recent Posts</h2>
+                        <PostGrid posts={recentPosts} />
                     </div>
                 </section>
             </section>
 
             <section className="container">
                 <div className="row">
-                    <PostMasonry posts={posts} columns={3}/>
+                    <h2>Featured Posts</h2>
+                    <PostMasonry posts={styledFeaturedPosts} columns={3}/>
                 </div>
             </section>
         </main>
-
     )
 }
 

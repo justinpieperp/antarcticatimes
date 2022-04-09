@@ -1,5 +1,5 @@
 import React from 'react'
-import { categoryColors } from './styles'
+import { tagColors } from '../styles'
 
 export default function TagRow ({ tags }) {
     return (
@@ -7,7 +7,7 @@ export default function TagRow ({ tags }) {
             { tags.map((tag, index) => (
                 <span key={index}
                     className='tag'
-                    style={{ backgroundColor: categoryColors[tag.tag.toUpperCase()] }}>
+                    style={{ backgroundColor: tagColors[tag.tag.toUpperCase()] }}>
                     { tag.tag.toUpperCase() }
                 </span>
             ))}

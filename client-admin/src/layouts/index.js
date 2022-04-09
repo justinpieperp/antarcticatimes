@@ -1,11 +1,11 @@
-import { Sider, Header, Footer, TableToolbar } from './ant-layouts'
-import { BasicHeader, BasicFooter } from './basic-layouts'
+import Sider from './ant-layouts/sider'
+import Header from './ant-layouts/header'
+import Footer from './ant-layouts/footer'
+import TableToolbar from './ant-layouts/content/table-toolbar'
 
 export {
   Sider,
   Header,
   Footer,
-  TableToolbar,
-  BasicHeader,
-  BasicFooter
+  TableToolbar
 }

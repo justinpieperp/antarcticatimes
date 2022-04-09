@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { MenuOutlined, CloseOutlined, UserOutlined, SearchOutlined } from '@ant-design/icons'
+import { MenuOutlined, CloseOutlined } from '@ant-design/icons'
 // import { Button, Tooltip, Avatar } from 'antd'
 
 const navLinks = [

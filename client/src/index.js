@@ -2,11 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
-
 import './assets/scss/base.scss'
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.min.css'
 
 const client = new ApolloClient({
     uri: 'http://localhost:4000/graphql',
@@ -14,12 +12,9 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
-    // <React.StrictMode>
     <ApolloProvider client={client}>
         <App />
     </ApolloProvider>,
-
-    // </React.StrictMode>,
     document.getElementById('root')
 )
 

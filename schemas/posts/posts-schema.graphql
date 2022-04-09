@@ -3,10 +3,10 @@ scalar Date
 type Post {
   _id: ID!
   title: String!
-  author: User!
+  user: User!
   description: String
   body: String!
-  image: String
+  imageURL: String
   category: Category!
   tags: [Tag]
   createdAt: Date
@@ -15,15 +15,27 @@ type Post {
 
 extend type Query {
   getPosts: [Post]
+  getPostById(_id: ID!): Post
+  getPostSortByDate: [Post]
 }
 
 extend type Mutation {
   createPost(
     title: String!
-    author: String!
-    description: String!
+    user: String!
+    description: String
     body: String!
-    image: String
+    imageURL: String
+    category: String!
+    tags: [String]
+  ): Post
+  deletePost(_id: ID!): String
+  updatePost(
+    title: String!
+    user: String!
+    description: String
+    body: String!
+    imageURL: String
     category: String!
     tags: [String]
   ): Post

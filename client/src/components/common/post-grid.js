@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Pagination } from 'antd'
-import { TagRow } from './'
+import { TagRow } from './index'
 import moment from 'moment'
 
 export default function PostGrid ({ posts }) {
@@ -36,7 +36,7 @@ export default function PostGrid ({ posts }) {
                         <figure>
                             {/* <Link to={`/post/${post?.id}`}> */}
                             <Link to={post.link}>
-                                <img src={require(`../../assets/images/${post.image}`)} alt={post.image}/>
+                                <img src={require(`../../assets/images/${post.imageURL}`)} alt={post.imageURL}/>
                             </Link>
                         </figure>
                         <TagRow tags={post.tags} />
@@ -44,9 +44,8 @@ export default function PostGrid ({ posts }) {
                         <p className="author-text">
                             <span>
                                 By:
-                                {/* <Link to={`/authors/${post.author}`} > */}
-                                <Link to={post.author.username} >
-                                    {post.author.username}
+                                <Link to={post.user.username} >
+                                    {post.user.username}
                                 </Link>
                             </span>
                             <span>

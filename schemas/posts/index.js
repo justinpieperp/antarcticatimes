@@ -3,68 +3,185 @@ const fs = require('fs')
 
 const resolvers = {
   Query: {
-    getPosts () {
-      const posts = Post.find()
-        .populate('author')
+    getPosts: async () => {
+      return await Post.find()
+        .populate('user')
         .populate('category')
-        .populate('tags').exec()
-      return posts
+        .populate('tags')
+        .exec()
+    },
+    getPostById: async (_, args) => {
+      return await Post.findOne({ _id: args._id })
+        .populate('user')
+        .populate('category')
+        .populate('tags')
+        .exec()
+    },
+    getPostSortByDate: async () => {
+      return await Post.find()
+        .sort({ createdAt: 'descending' })
+        .limit(12)
+        .populate('user')
+        .populate('category')
+        .populate('tags')
+        .exec()
     }
   },
 
   Mutation: {
-    async createPost (_, args) {
-      const userInput = await User.findOne({ username: args.author }).exec()
-      const categoryInput = await Category.findOne({ category: args.category }).exec()
+    createPost: async (_, args) => {
+      // 返回所有找到的tags, 如果input里有nonexist tag, 不会报错
+      const existentTagsObj = await Tag.find({ tag: args.tags }).exec()
+      const existentTagsArray = await existentTagsObj.map(item => item.tag)
+      const nonexistentTagsArray = await args.tags.filter(item => !existentTagsArray.includes(item))
 
-      const tagsNameInputArray = args.tags
-      // console.log(tagsNameInputArray)
-      const tagsInputArray = await Promise.all(tagsNameInputArray.map(e =>
-        Tag.findOne({ tag: e })
-      ))
-      // console.log(tagsInputArray)
+      const insertTags = await Promise.all(nonexistentTagsArray.map(item => {
+        return Tag.insertMany(
+          { tag: item }
+        )
+      }))
 
-      // 想实现如果input tag里面有不存在的tag, 弹出提示, 一个思路是input tag array和tags array比较
+      const tagNames = await Tag.find({ tag: args.tags }).exec()
+      const tagIds = await tagNames.map(item => { return item._id })
+
+      const savedPost = await new Post({
+        title: args.title,
+        user: args.user,
+        description: args.description,
+        body: args.body,
+        category: args.category,
+        imageURL: args.imageURL,
+        tags: tagIds
+      }).save()
+
+      // 如果input tags里面有不存在的tag, 弹出提示, 一个思路是input tags array和current tags array比较
       // 查看Stack Overflow的collection
       // const nonexistentTag = checkTags.findIndex(tag => tag === null)
       // console.log(nonexistentTag)
       // const tags = await Tag.find({}, 'tag') // .exec()
       // console.log(tags)
       // const nonexistentTags = args.tags.filter(tag => Tag.find({})!)
-
-      if (userInput === null) {
-        console.log("The author doesn't exist.")
-        throw new Error("The author doesn't exist.")
-      } else if (categoryInput === null) {
-        console.log("The cate doesn't exist.")
-        throw new Error("The category doesn't exist.")
       // } else if (checkTags.includes(null)) {
       //   throw new Error("At least one tag doesn't exist")
-      } else {
-        const newPost = new Post({
+      // const tagsInputArray = await Promise.all(tagsNameInputArray.map(e =>
+      //   Tag.findOne({ tag: e })
+      // ))
+
+      await User.findOneAndUpdate(
+        { _id: savedPost.user },
+        { $push: { posts: savedPost._id } },
+        { new: true }
+      ).exec()
+
+      await Category.findOneAndUpdate(
+        { _id: savedPost.category },
+        { $push: { posts: savedPost._id } },
+        { new: true }
+      ).exec()
+
+      // console.log('tagIds: ' + tagIds)
+      await Tag.updateMany(
+        { _id: tagIds },
+        { $push: { posts: savedPost._id } },
+        { new: true }
+      ).exec()
+
+      return savedPost
+    },
+
+    deletePost: async (_, args) => {
+      const deletedObj = await Post.findOneAndDelete({ _id: args._id }).exec()
+
+      // const temp1 = await Tag.find(
+      //   { _id: { $in: deletedObj.tags } }
+      // ).exec()
+
+      await Tag.updateMany(
+        { _id: { $in: deletedObj.tags } },
+        { $pull: { posts: deletedObj._id } },
+        { new: true }
+      ).exec()
+
+      await User.findOneAndUpdate(
+        { _id: deletedObj.user },
+        { $pull: { posts: deletedObj._id } },
+        { new: true }).exec()
+
+      await Category.findOneAndUpdate(
+        { _id: deletedObj.category },
+        { $pull: { posts: deletedObj._id } },
+        { new: true }).exec()
+
+      return `Successfully Delete Post: ${deletedObj.title} Created by user ${deletedObj.user}`
+    },
+
+    updatePost: async (_, args) => {
+      const currObj = await Tag.findById({ _id: args._id }).exec()
+      const currTags = currObj.tags.map((item, index) => { return item.tag })
+
+      const existentTagsObj = await Tag.find({ tag: args.tags }).exec()
+      const existentTagsArray = await existentTagsObj.map(item => item.tag)
+      const nonexistentTagsArray = await args.tags.filter(item => !existentTagsArray.includes(item))
+
+      const insertTags = await Promise.all(nonexistentTagsArray.map(item => {
+        return Tag.insertMany(
+          { tag: item }
+        )
+      }))
+
+      const tagNames = await Tag.find({ tag: args.tags }).exec()
+      const tagIds = await tagNames.map(item => { return item._id })
+
+      const updatedPost = await Post.findOneAndUpdate(
+        { _id: args._id },
+        {
           title: args.title,
-          author: userInput._id,
+          user: args.user,
+          description: args.description,
           body: args.body,
-          category: categoryInput._id,
-          tags: tagsInputArray.map(e => e._id)
-        })
-        userInput.posts.push(newPost)
-        userInput.save()
+          category: args.category,
+          imageURL: args.imageURL,
+          tags: tagIds
+        }, { new: true }
+      ).exec()
 
-        categoryInput.posts.push(newPost)
-        categoryInput.save()
+      if (currObj.user !== args.user) {
+        await User.findOneAndUpdate(
+          { _id: currObj.user },
+          { $pull: { posts: args._id } },
+          { new: true }
+        ).exec()
 
-        tagsNameInputArray.forEach(async e => {
-          const tag = await Tag.findOne({ tag: e }).exec()
-          tag.posts.push(newPost)
-          tag.save()
-        })
-
-        newPost.save()
-
-        // return的newpost里只有关联表的id, 级联查询没有实现
+        await User.findOneAndUpdate(
+          { _id: args.user },
+          { $push: { posts: args._id } },
+          { new: true }
+        ).exec()
       }
+
+      if (currObj.category !== args.category) {
+        await Category.findOneAndUpdate(
+          { _id: currObj.category },
+          { $pull: { posts: args._id } },
+          { new: true }
+        ).exec()
+
+        await Category.findOneAndUpdate(
+          { _id: args.category },
+          { $push: { posts: args._id } },
+          { new: true }
+        ).exec()
+      }
+
+      await Tag.updateMany(
+        { _id: tagIds },
+        { $push: { posts: updatedPost._id } },
+        { new: true }
+      ).exec()
+
+      return updatedPost
     }
+
   }
 }
 

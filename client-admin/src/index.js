@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import App from './App'
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.min.css'
 import './assets/scss/base.scss'
 
 const client = new ApolloClient({
@@ -12,12 +12,10 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
-  <React.StrictMode>
      <ApolloProvider client={client}>
        <App />
-    </ApolloProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+    </ApolloProvider>,
+     document.getElementById('root')
 )
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,5 +1,6 @@
 extend type Query {
   getUsers: [User]
+  getUserById(_id: ID!): User
 }
 
 type User {
@@ -12,7 +13,6 @@ type User {
 
 extend type Mutation {
   createUser(username: String!, email: String!, password: String!): User
-
-  deleteUser(tag: String!): String
-  updateUser(tag: String!, updateTo: String!): User
+  deleteUser(_id: ID!): String
+  updateUser(_id: ID!, newUsername: String, newEmail: String): User
 }

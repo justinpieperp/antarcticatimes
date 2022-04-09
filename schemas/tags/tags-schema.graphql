@@ -6,11 +6,12 @@ type Tag {
 
 extend type Query {
   getTags: [Tag]
-  getTagById(id: ID!): Tag
+  getTagById(_id: ID!): Tag
+  getTagByName(tag: String!): Tag
 }
 
 extend type Mutation {
   createTag(tag: String!): Tag
   deleteTag(tag: String!): Tag
-  updateTag(tag: String!, updateTo: String!): Tag
+  updateTag(_id: ID!, updateTo: String!): Tag
 }

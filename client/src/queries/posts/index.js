@@ -1,18 +1,15 @@
-// import React from 'react'
-// import { useQuery, gql } from '@apollo/client'
-
 import { gql } from '@apollo/client'
 
-export const GET_POSTS = gql`
+const GET_POSTS = gql`
 query getPosts {
     getPosts {  
         title
-        author {
+        user {
             username
         }
         description
         body
-        image
+        imageURL
         createdAt
         category {
             category
@@ -23,21 +20,29 @@ query getPosts {
     } 
 }    
 `
-// export default function Posts () {
-//     const { loading, error, data } = useQuery(GET_POSTS)
 
-//     if (loading) return <p>Loading...</p>
-//     if (error) return <p>Error :(</p>
+const GET_POST_SORT_BY_DATE = gql`
+query GetPostSortByDate {
+    getPostSortByDate {  
+        title
+        user {
+            username
+        }
+        description
+        body
+        imageURL
+        createdAt
+        category {
+            category
+        }
+        tags{
+            tag
+        }
+    } 
+}    
+`
 
-//     console.log(data)
-//     const posts = data.getPosts
-
-//     return (
-//         <div>
-//             {posts.map((post) => (
-//                 <Post key={post.id} post={post} />
-//             ))}
-//         </div>
-
-//     )
-// }
+export {
+    GET_POSTS,
+    GET_POST_SORT_BY_DATE
+}

@@ -1,12 +1,16 @@
-// const { gql } = require('apollo-server-express');
 const Category = require('../../modules/models/category')
 const fs = require('fs')
 
 const resolvers = {
   // "Cannot return null for non-nullable field" in graphiql: have not populated other collection
   Query: {
-    getCategories () {
-      return Category.find().populate('posts')
+    getCategories: async () => {
+      const res = await Category.find().populate('posts').exec()
+      return res
+    },
+
+    getCategoryById: async (_, args) => {
+      return await Category.findOne({ _id: args._id }).populate('posts').exec()
     }
   },
 
@@ -16,51 +20,44 @@ const resolvers = {
   // use .exec() as execution, easy to return err to graphiql
   // please compare with tags/index.js
   Mutation: {
-    async createCategory (_, args) {
+    createCategory: async (_, args) => {
       const checkCategory = await Category.findOne({
         category: args.category
       }).exec()
-      if (checkCategory === null) {
-        const newCategory = new Category({
-          category: args.category
-        })
-        newCategory.save()
-        return newCategory
-      } else {
-        throw new Error('Category exists')
+      if (checkCategory !== null) {
+        throw new Error('Category Exists')
       }
+      const newCategory = new Category({
+        category: args.category
+      })
+      newCategory.save()
+      return newCategory
     },
 
-    async deleteCategory (_, args) {
-      const checkCategory = await Category.findOne({ category: args.category }).exec()
+    deleteCategory: async (_, args) => {
+      const checkCategory = await Category.findOne({ _id: args._id }).exec()
       if (checkCategory === null) {
         throw new Error("Category doesn't exist")
-      } else if (checkCategory.posts.length !== 0) {
-        throw new Error(
-          'Catogery cannot be deleted. There is at least one post under this category.'
-        )
-      } else {
-        const deletedCategory = await Category.findOneAndDelete({ category: args.category }).exec()
-        console.log('delete:' + deletedCategory)
-        return deletedCategory
-        // return 'Category has been deleted'
       }
+      if (checkCategory.posts.length !== 0) {
+        throw new Error('There is at least one post under this category.')
+      }
+      const deletedCategory = await Category.findOneAndDelete({ _id: args._id }).exec()
+      console.log('delete:' + deletedCategory)
+      return deletedCategory
     },
 
-    async updateCategory (_, args) {
-      const checkCategory = await Category.findOne({
-        category: args.category
-      }).exec()
+    updateCategory: async (_, args) => {
+      const checkCategory = await Category.findOne({ _id: args._id }).exec()
       if (checkCategory === null) {
         throw new Error("Category doesn't exist.")
-      } else {
-        const updatedCategory = await Category.findOneAndUpdate(
-          { category: args.category },
-          { category: args.updateTo },
-          { new: true }
-        ).exec()
-        return updatedCategory
       }
+      const updatedCategory = await Category.findOneAndUpdate(
+        { _id: args._id },
+        { category: args.updateTo },
+        { new: true }
+      ).exec()
+      return updatedCategory
     }
   }
 }

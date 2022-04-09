@@ -3,12 +3,18 @@ const fs = require('fs')
 
 const resolvers = {
   Query: {
-    getTags: () => {
-      return Tag.find().populate('posts')
+    getTags: async () => {
+      const tags = await Tag.find().populate('posts').exec()
+      return tags
     },
 
-    getTagById: async ({ id }) => {
-      const tag = await Tag.findById(id)
+    getTagById: async (_, args) => {
+      const tag = await Tag.findById({ _id: args._id }).populate('posts').exec()
+      return tag
+    },
+
+    getTagByName: async (_, args) => {
+      const tag = await Tag.findOne({ tag: args.tag }).populate('posts').exec()
       return tag
     }
   },
@@ -16,46 +22,42 @@ const resolvers = {
   Mutation: {
     createTag: async (_, args) => {
       const checkTag = await Tag.findOne({ tag: args.tag }).exec()
-      if (checkTag === null) {
-        const newTag = new Tag({
-          tag: args.tag
-        })
-        const result = await newTag.save()
-        console.log('created a new tag:' + result)
-        return result
-      } else {
+      if (checkTag !== null) {
         throw new Error('Tag exists')
       }
+      const newTag = new Tag({
+        tag: args.tag
+      })
+      const result = await newTag.save()
+      console.log('created a new tag:' + result)
+      return result
     },
 
     deleteTag: async (_, args) => {
       const checkTag = await Tag.findOne({ tag: args.tag }).exec()
       if (checkTag === null) {
         throw new Error("Tag doesn't exist")
-      } else if (checkTag.posts.length !== 0) {
-        throw new Error(
-          'Tag cannot be deleted. There is at least one post under this tag.'
-        )
-      } else {
-        const deletedTag = await Tag.findOneAndDelete({ tag: args.tag }).exec()
-        console.log('delete:' + deletedTag)
-        return deletedTag
       }
+      if (checkTag.posts.length !== 0) {
+        throw new Error('Tag cannot be deleted when at least one post under this tag.')
+      }
+      const deletedTag = await Tag.findOneAndDelete({ tag: args.tag }).exec()
+      console.log('delete:' + deletedTag)
+      return deletedTag
     },
 
     updateTag: async (_, args) => {
-      const checkTag = await Tag.findOne({ tag: args.tag }).exec()
-      if (checkTag === null) {
-        throw new Error("Tag doesn't exist")
-      } else {
-        const updatedTag = await Tag.findOneAndUpdate(
-          { tag: args.tag },
-          { tag: args.updateTo },
-          { new: true }
-        ).exec()
-        console.log('update:' + updatedTag)
-        return updatedTag
+      const existed = await Tag.findOne({ tag: args.updateTo }).exec()
+      if (existed !== null) {
+        throw new Error('Tag Exists!')
       }
+      const updatedTag = await Tag.findOneAndUpdate(
+        { _id: args._id },
+        { tag: args.updateTo },
+        { new: true }
+      ).exec()
+      console.log('update:' + updatedTag)
+      return updatedTag
     }
   }
 }

@@ -27,14 +27,3 @@ const userSchema = new Schema({
 })
 
 module.exports = mongoose.model('User', userSchema)
-
-// email: {
-//     type: String,
-//     unique: 'This Email is already in use',
-//     validate: {
-//         validator: () => Promise.resolve(false),
-//         message: '{VALUE} is not a valid email'
-//     },
-//     required: [true, 'Email required']
-// }
-// })

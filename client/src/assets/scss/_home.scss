@@ -7,7 +7,7 @@
     padding: 1.5em 0;
   }
 
-  .featured-posts-container {
+  .trending-posts-container {
     display: flex;
   }
 
@@ -24,7 +24,7 @@
       margin-block-end: 1.5em;
     }
 
-    .featured-posts-container {
+    .trending-posts-container {
       flex-direction: column;
     }
   }

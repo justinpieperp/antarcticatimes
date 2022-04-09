@@ -1,6 +1,26 @@
 import { CREATE_TAG, UPDATE_TAG, DELETE_TAG } from './tag-mutation'
+import { CREATE_CATEGORY, UPDATE_CATEGORY, DELETE_CATEGORY } from './category-mutation'
+import {
+  CREATE_USER,
+  DELETE_USER,
+  UPDATE_USER
+} from './user-mutation'
+import {
+  CREATE_POST,
+  DELETE_POST,
+  UPDATE_POST
+} from './posts-mutation'
 
 export {
+  CREATE_POST,
+  DELETE_POST,
+  UPDATE_POST,
+  CREATE_CATEGORY,
+  UPDATE_CATEGORY,
+  DELETE_CATEGORY,
+  CREATE_USER,
+  DELETE_USER,
+  UPDATE_USER,
   CREATE_TAG,
   UPDATE_TAG,
   DELETE_TAG

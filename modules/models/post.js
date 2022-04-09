@@ -6,7 +6,7 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
-  author: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
@@ -19,9 +19,9 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
-  image: {
+  imageURL: {
     type: String,
-    default: 'n95.jpg',
+    default: '111.jpg',
     required: false
   },
   category: {
@@ -32,7 +32,8 @@ const postSchema = new Schema({
   tags: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Tag'
+      ref: 'Tag',
+      required: false
     }
   ]
 },

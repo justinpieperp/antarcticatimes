@@ -1,32 +1,9 @@
-import React from 'react'
-import { useQuery, gql } from '@apollo/client'
-import columns from './categories-column'
-import { Table } from 'antd'
+import CategoryList from './categories-list'
+import CreateCategory from './categories-create'
+import CategoryDetail from './categories-detail'
 
-const GET_CATEGORIES = gql`
-query{
-  getCategories {
-    category,
-    _id,
-    posts {
-      title
-    }
-  }
+export {
+  CategoryList,
+  CreateCategory,
+  CategoryDetail
 }
-`
-
-const Category = () => {
-  const { loading, error, data } = useQuery(GET_CATEGORIES)
-
-  if (loading) return <p>Loading...</p>
-  if (error) throw new Error(error) // return `Error! ${error.message}`
-
-  return (
-        <div>
-            <Table columns={columns} dataSource={data.getCategories} scroll={{ x: 'max-content' }} />
-        </div>
-
-  )
-}
-
-export default Category

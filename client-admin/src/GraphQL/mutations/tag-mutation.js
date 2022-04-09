@@ -9,8 +9,8 @@ mutation createTag($tag: String!) {
 `
 
 const UPDATE_TAG = gql`
-mutation updateTag($tag: String, $updateTo: String) {
-    updateTag(tag: $updateTo) {
+mutation updateTag($_id: ID!, $updateTo: String!) {
+    updateTag(_id: $_id, updateTo: $updateTo) {
         tag
     }
 }

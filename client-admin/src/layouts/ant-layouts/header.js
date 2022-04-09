@@ -10,7 +10,7 @@ const Header = () => {
   const setInput = () => showSearchInput(!searchInput)
 
   return (
-    <Layout.Header className="header-layout">
+    <Layout.Header className="header-container">
         <Space className="header-toolbar">
              <Button type="text" shape="circle" onClick={setInput} icon={<SearchOutlined />} />
             { searchInput

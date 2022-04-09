@@ -1,71 +1,81 @@
 .layout-container {
-    width: 100%;
+  min-height: 100vh;
+
+  .sider-container {
+    overflow: auto;
+    min-height: 100%;
+    position: sticky;
+    left: 0;
+    top: 0;
+
+    li {
+      margin: 0;
+    }
+
+    .title {
+      font-weight: bolder;
+      font-size: large;
+      height: $header-height;
+      background: $header-bg-color;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .main-container {
     min-height: 100%;
 
-    .sider-layout {
-        overflow: auto;
-        height: 100vh;
-        position: sticky;
-        left: 0;
-        top: 0;
+    .header-container {
+      background: $header-bg-color;
+      height: $header-height;
+      // width: 100%;
+      margin: 0;
+      padding: 0 16px;
+
+      .header-toolbar {
+        float: right;
+        height: 100%;
+      }
+    }
+
+    .content-container {
+      background: white;
+      height: 100%;
+
+      .container {
+        height: 100%;
+        width: 100%;
+        padding: 24px;
+
+        ul {
+          margin-bottom: 0;
+        }
+      }
+
+      .table-toolbar {
         
-        li {
-            margin: 0 0 12px 0;
-        }
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
 
-        .logo {
-            height: 32px;
-            background: rgba(255, 255, 255, 0.3);
-            margin: 16px;
+        .title {
+          font-size: large;
+          font-weight: 600;
         }
+      }
+
+      table {
+        max-height: 100%;
+      }
     }
-    
-    .site-layout{
 
-        .header-layout {
-            background: $layout-bg-color;
-            height: 48px;
-            margin: 0;
-            padding: 0 16px;
-
-            .header-toolbar {
-                float: right;
-                height: 100%;
-            }     
-        }
-
-        .content-layout {
-            background: $layout-bg-color;
-            height: 100%;
-            padding: 0 24px;
-            margin: 24px;
-            // min-height: 280;
-            
-            .table-toolbar {
-                padding: 24px 0;
-                float: right;
-                // display: flex;
-                // justify-content: right;
-            }
-        }
-
-        .footer-layout {
-            height: 80px;
-            text-align: center;
-
-        }
+    .footer-container {
+      height: $footer-height;
+      background-color: $footer-bg-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+  }
 }
-      
- 
-
-
-
-
-
-
-
- 
-
-
-  
