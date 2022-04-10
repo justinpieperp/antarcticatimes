@@ -5,7 +5,7 @@ import { PostMasonry, PostGrid, MasonryPost } from '../components/common'
 import { GET_POSTS, GET_POST_SORT_BY_DATE } from '../queries/posts'
 import { trendingConfig, featuredConfig } from '../components/styles'
 
-function Home () {
+const Home = () => {
     const allPostsQuery = useQuery(GET_POSTS)
     const recentPostsQuery = useQuery(GET_POST_SORT_BY_DATE)
     if (allPostsQuery.loading || recentPostsQuery.loading) return <Spin className='center' tip="Loading..." />
