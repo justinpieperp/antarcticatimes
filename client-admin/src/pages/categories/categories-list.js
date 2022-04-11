@@ -16,7 +16,7 @@ const CategoryList = () => {
     onCompleted: () => triggerSuccessModal(refetch)
   })
 
-  if (loading) return <Spin className='center' tip="Loading..." />
+  if (loading) return <div className='container center'><Spin tip="Loading..." /></div>
   if (error) triggerErrorModal(error, reset)
 
   const clickEditButton = id => {
@@ -41,7 +41,7 @@ const CategoryList = () => {
     {
       title: 'Category',
       dataIndex: 'category',
-      width: '15%',
+      width: 168,
       fixed: true,
       render: function (category) {
         return capitalizedString(category)
@@ -50,12 +50,11 @@ const CategoryList = () => {
     {
       title: 'ID',
       dataIndex: '_id',
-      width: '30%'
+      width: 168
     },
     {
       title: 'Posts',
       dataIndex: 'posts',
-      width: '30%',
       render: function renderTags (posts) {
         const postsList = posts.map(e =>
           <li key={e._id}> {e.title} </li>

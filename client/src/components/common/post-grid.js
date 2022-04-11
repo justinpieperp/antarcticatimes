@@ -1,11 +1,11 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Pagination } from 'antd'
 import { TagRow } from './index'
 import moment from 'moment'
 
-export default function PostGrid ({ posts }) {
-    const [pageSize, setPageSize] = useState(6)
+export default function PostGrid ({ posts, size }) {
+    const [pageSize, setPageSize] = useState(size)
     const [current, setCurrent] = useState(1)
 
     // useMemo: 在setPageSize或SetCurrent改变的情况下执行paginatedPosts
@@ -18,13 +18,13 @@ export default function PostGrid ({ posts }) {
     }, [current, pageSize, posts])
 
     // make external effect when params changes
-    useEffect(() => {
-        window.scroll({
-            top: 500,
-            left: 0,
-            behavior: 'smooth'
-        })
-    }, [current, pageSize])
+    // useEffect(() => {
+    //     window.scroll({
+    //         top: 400,
+    //         left: 0,
+    //         behavior: 'smooth'
+    //     })
+    // }, [current, pageSize])
 
     const dateFormatter = (date) => { return moment(new Date(date).toISOString()).format('MMMM DD, YYYY') }
 
@@ -40,7 +40,7 @@ export default function PostGrid ({ posts }) {
                             </Link>
                         </figure>
                         <TagRow tags={post.tags} />
-                        <h2>{post.title}</h2>
+                        <h3>{post.title}</h3>
                         <p className="author-text">
                             <span>
                                 By:

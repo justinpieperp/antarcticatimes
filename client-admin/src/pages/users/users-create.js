@@ -4,6 +4,7 @@ import { CREATE_USER } from '../../GraphQL/mutations'
 import { triggerErrorModal, triggerSuccessModal } from '../components/common'
 import { Form, Input, Button } from 'antd'
 import { TableToolbar } from '../../layouts'
+import { layout, layoutWithoutLabel } from '../components/_variables'
 
 const CreateUser = () => {
   const [username, setUsername] = useState()
@@ -26,15 +27,6 @@ const CreateUser = () => {
   const submitForm = () => {
     create()
     form.resetFields()
-  }
-
-  const layout = {
-    labelCol: {
-      span: 6
-    },
-    wrapperCol: {
-      span: 6
-    }
   }
 
   const validateMessages = {
@@ -67,7 +59,7 @@ const CreateUser = () => {
             <Input onChange={(e) => setPassword(e.target.value)}/>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
+          <Form.Item {...layoutWithoutLabel}>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>

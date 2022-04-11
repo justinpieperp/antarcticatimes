@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { CREATE_CATEGORY } from '../../GraphQL/mutations'
 import { triggerErrorModal, triggerSuccessModal } from '../components/common'
+import { layout, layoutWithoutLabel } from '../components/_variables'
 import { Form, Input, Button } from 'antd'
 import { TableToolbar } from '../../layouts'
 
@@ -20,15 +21,6 @@ const CreateCategory = () => {
   const submitForm = () => {
     create()
     form.resetFields()
-  }
-
-  const layout = {
-    labelCol: {
-      span: 6
-    },
-    wrapperCol: {
-      span: 6
-    }
   }
 
   const validateMessages = {
@@ -52,7 +44,7 @@ const CreateCategory = () => {
             <Input onChange={(e) => setUserInput(e.target.value)}/>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
+          <Form.Item {...layoutWithoutLabel}>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>

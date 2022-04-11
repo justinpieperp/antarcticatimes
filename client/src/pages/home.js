@@ -8,7 +8,7 @@ import { trendingConfig, featuredConfig } from '../components/styles'
 const Home = () => {
     const allPostsQuery = useQuery(GET_POSTS)
     const recentPostsQuery = useQuery(GET_POST_SORT_BY_DATE)
-    if (allPostsQuery.loading || recentPostsQuery.loading) return <Spin className='center' tip="Loading..." />
+    if (allPostsQuery.loading || recentPostsQuery.loading) return <div className='container center'><Spin tip="Loading..." /></div>
     if (allPostsQuery.error) return new Error(allPostsQuery.error)
     if (recentPostsQuery.error) return new Error(recentPostsQuery.error)
 
@@ -39,12 +39,12 @@ const Home = () => {
             </section>
 
             <section className="bg-white">
-                <section className="container">
+                <div className="container">
                     <div className="row">
-                        <h2>Recent Posts</h2>
-                        <PostGrid posts={recentPosts} />
+                        <h2 style={{ paddingTop: '2em' }}>Recent Posts</h2>
+                        <PostGrid posts={recentPosts} size={6} />
                     </div>
-                </section>
+                </div>
             </section>
 
             <section className="container">

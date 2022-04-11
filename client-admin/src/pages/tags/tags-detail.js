@@ -26,7 +26,7 @@ const TagDetail = () => {
     }
   })
 
-  if (loading) return <Spin className='center' tip="Loading..." />
+  if (loading) return <div className='container center'><Spin tip="Loading..." /></div>
   if (error) triggerErrorModal(error, reset)
 
   const currentTag = data.getTagById
@@ -50,8 +50,6 @@ const TagDetail = () => {
         <Form {...layout}
           name="basic"
           form={form}
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 6 }}
           onFinish={submitForm}
         >
           <Form.Item label="Tag Name">

@@ -15,7 +15,7 @@ const UserList = () => {
     onCompleted: () => triggerSuccessModal(userQuery.refetch)
   })
 
-  if (userQuery.loading) return <Spin className='center' tip="Loading..." />
+  if (userQuery.loading) return <div className='container center'><Spin tip="Loading..." /></div>
   if (userQuery.error) return triggerErrorModal(userQuery.error, userQuery.refetch)
   if (error) return triggerErrorModal(error, reset)
 
@@ -47,7 +47,8 @@ const UserList = () => {
     {
       title: 'Email',
       dataIndex: 'email',
-      width: 168
+      width: 168,
+      ellipsis: true
     },
     {
       title: 'ID',

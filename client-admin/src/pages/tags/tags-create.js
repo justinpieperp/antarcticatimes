@@ -4,6 +4,7 @@ import { CREATE_TAG } from '../../GraphQL/mutations'
 import { Form, Input, Button } from 'antd'
 import { triggerSuccessModal, triggerErrorModal } from '../components/common'
 import { TableToolbar } from '../../layouts'
+import { layout, layoutWithoutLabel } from '../components/_variables'
 
 const CreateTag = () => {
   const [userInput, setUserInput] = useState('')
@@ -32,10 +33,8 @@ const CreateTag = () => {
           title={'Tag/Create'}
           showAddButton={false}
           />
-      <Form
-        labelCol={{ span: 6 }}
+      <Form {...layout}
         form={form}
-        wrapperCol={{ span: 6 }}
         onFinish={submitForm}
       >
         <Form.Item name='name' label="New Tag"
@@ -43,7 +42,7 @@ const CreateTag = () => {
           <Input onChange={(e) => setUserInput(e.target.value)} />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ span: 6, offset: 6 }}>
+        <Form.Item {...layoutWithoutLabel}>
           <Button type="primary" htmlType="submit">Submit</Button>
         </Form.Item>
       </Form>

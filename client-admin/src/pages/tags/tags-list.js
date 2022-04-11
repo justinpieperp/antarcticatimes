@@ -16,7 +16,7 @@ const TagList = () => {
     }
   })
 
-  if (tagsQuery.loading) return <Spin className='center' tip="Loading..." />
+  if (tagsQuery.loading) return <div className='container center'><Spin tip="Loading..." /></div>
   if (tagsQuery.error) return triggerErrorModal(tagsQuery.error)
   if (error) return triggerErrorModal(error, reset)
 
@@ -46,20 +46,18 @@ const TagList = () => {
       title: 'Tag',
       dataIndex: 'tag', // 列数据, 可嵌套查询
       key: 'tag', // React 需要的 key, 如果设置了唯一的 dataIndex, 可忽略
-      width: '15%',
+      // width: 168,
       fixed: true
     },
     {
       title: 'ID',
       dataIndex: '_id',
-      key: '_id',
-      width: '30%'
+      key: '_id'
+      // width: 168
     },
     {
       title: 'Posts',
       dataIndex: 'posts',
-      // key: 'posts.title',
-      width: '30%',
       render: function renderTags (posts) {
         const postsList = posts.map((post) => {
           return (
@@ -72,10 +70,9 @@ const TagList = () => {
     {
       title: 'Action',
       key: 'action',
-      width: '20%',
       render: function renderAction (text, record) {
         return (
-          <Space size='middle'>
+          <Space size='small'>
             <Button type='link' onClick={() => clickEditButton(record._id)}>EDIT</Button>
             <Button type='link' onClick={(e) => clickDeleteButton(record.tag) }>DELETE</Button>
           </Space>

@@ -21,7 +21,7 @@ const CategoryDetail = () => {
     onCompleted: () => triggerSuccessModal(refetch)
   })
 
-  if (loading) return <Spin className='center' tip="Loading..." />
+  if (loading) return <div className='container center'><Spin tip="Loading..." /></div>
   if (error) triggerErrorModal(error, reset)
   const currentObj = data.getCategoryById
 

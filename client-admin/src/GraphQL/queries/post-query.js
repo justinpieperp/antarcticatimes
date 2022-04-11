@@ -29,19 +29,23 @@ query GetPostById($id: ID!){
         _id
         title
         user {
+          _id
           username
         }
         description
         body
         imageURL
         category {
+          _id
           category
         }
         tags {
+          _id
           tag
         }
         createdAt
         updatedAt
+        imageURL
     } 
 }   
 `

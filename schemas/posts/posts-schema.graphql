@@ -29,14 +29,17 @@ extend type Mutation {
     category: String!
     tags: [String]
   ): Post
+
   deletePost(_id: ID!): String
+
   updatePost(
-    title: String!
-    user: String!
+    _id: ID!
+    title: String
+    user: ID
     description: String
-    body: String!
+    body: String
     imageURL: String
-    category: String!
+    category: ID
     tags: [String]
   ): Post
 }

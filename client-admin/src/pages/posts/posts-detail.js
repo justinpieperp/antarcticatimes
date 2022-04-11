@@ -29,10 +29,16 @@ const PostDetail = () => {
       variables: {
         id: params.id
       },
-      onCompleted: data => setSelectedTags(data.getPostById.tags.map((tag, index) => { return tag.tag }))
-    }
-    , { fetchPolicy: 'cache-and-network' }
-
+      onCompleted: data => {
+        setTitle(data.getPostById.title)
+        setUserId(data.getPostById.user._id)
+        setDescription(data.getPostById.description)
+        setBody(data.getPostById.body)
+        setCategoryId(data.getPostById.category._id)
+        setImageURL(data.getPostById.imageURL)
+        setSelectedTags(data.getPostById.tags.map((tag, index) => { return tag.tag }))
+      }
+    }, { fetchPolicy: 'cache-and-network' }
   )
 
   const [updatePost, { error, reset }] = useMutation(UPDATE_POST, {
@@ -41,7 +47,7 @@ const PostDetail = () => {
     }
   })
 
-  if (usersQuery.loading || catesQuery.loading || tagsQuery.loading || postQuery.loading) return <Spin className='center' tip="Loading..." />
+  if (usersQuery.loading || catesQuery.loading || tagsQuery.loading || postQuery.loading) { return <div className='container center'><Spin tip="Loading..." /></div> }
   if (usersQuery.error) return triggerErrorModal(usersQuery.error, reset)
   if (catesQuery.error) return triggerErrorModal(catesQuery.error, reset)
   if (tagsQuery.error) return triggerErrorModal(tagsQuery.error, reset)
@@ -51,13 +57,35 @@ const PostDetail = () => {
   const allUsers = usersQuery.data.getUsers
   const allCates = catesQuery.data.getCategories
   const allTags = tagsQuery.data.getTags
-  const currObj = postQuery.data.getPostById
-  // const currTags = currObj.tags.map((tag, index) => { return tag.tag })
+  const currPost = postQuery.data.getPostById
+  // console.log(currObj._id)
+
+  const initialValues = {
+    title: currPost.title,
+    user: currPost.user._id,
+    description: currPost.description,
+    body: currPost.body,
+    category: currPost.category._id,
+    imageURL: currPost.imageURL,
+    tags: selectedTags
+  }
+
+  const onValuesChange = (changedValue, allValues) => {
+    console.log('allValues' + allValues.selectedTags)
+
+    setTitle(allValues.title)
+    setUserId(allValues.user)
+    setDescription(allValues.description)
+    setBody(allValues.body)
+    setCategoryId(allValues.category)
+    setImageURL(allValues.imageURL)
+    setSelectedTags(allValues.selectedTags)
+  }
 
   const submitForm = () => {
     updatePost({
       variables: {
-        _id: currObj._id,
+        id: currPost._id,
         title: title,
         user: userId,
         description: description,
@@ -69,32 +97,8 @@ const PostDetail = () => {
     })
   }
 
-  const initialValues = {
-    title: currObj.title,
-    user: currObj.user.username,
-    description: currObj.description,
-    body: currObj.body,
-    category: currObj.category.category,
-    imageURL: currObj.imageURL,
-    tags: selectedTags
-  }
-
-  // console.log('currTags' + currTags)
-
-  const onValuesChange = (changedValue, allValues) => {
-    setTitle(allValues.title)
-    setUserId(allValues.user)
-    setDescription(allValues.description)
-    setBody(allValues.body)
-    setCategoryId(allValues.category)
-    setImageURL(allValues.imageURL)
-    setSelectedTags(allValues.selectedTags)
-  }
-
-  console.log('selectedTags: ' + selectedTags)
-
   const validateMessages = {
-    required: `${form.name} is required!`
+    required: `${form.label} is required!`
   }
 
   const convertStrToDate = (str) => {
@@ -110,7 +114,7 @@ const PostDetail = () => {
 
     <Form {...layout}
         form={form}
-        name="nest-messages"
+        name="post"
         initialValues={initialValues}
         validateMessages={validateMessages}
         onValuesChange={onValuesChange}
@@ -123,15 +127,15 @@ const PostDetail = () => {
       </Form.Item>
 
       <Form.Item label="ID">
-        { currObj._id }
+        { currPost._id }
       </Form.Item>
 
       <Form.Item label="Created At" name='created'>
-        {convertStrToDate(currObj.createdAt)}
+        {convertStrToDate(currPost.createdAt)}
       </Form.Item>
 
       <Form.Item label="Last Updated" name='updated'>
-        {convertStrToDate(currObj.updatedAt)}
+        {convertStrToDate(currPost.updatedAt)}
       </Form.Item>
 
       <Form.Item label="user" name='user' rules={[{ required: true }]}>
@@ -163,7 +167,7 @@ const PostDetail = () => {
         label="Tags[multiple]"
         >
         <TagSelector
-         setSelectedTags={setSelectedTags}
+          setSelectedTags={setSelectedTags}
           defaultValue={selectedTags}
           allTags={allTags}
           />

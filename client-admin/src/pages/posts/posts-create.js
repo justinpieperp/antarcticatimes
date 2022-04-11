@@ -38,7 +38,7 @@ const CreatePost = () => {
     }
   })
 
-  if (usersQuery.loading || catesQuery.loading || tagsQuery.loading) return <Spin className='center' tip="Loading..." />
+  if (usersQuery.loading || catesQuery.loading || tagsQuery.loading) return <div className='container center'><Spin tip="Loading..." /></div>
   if (usersQuery.error) return triggerErrorModal(usersQuery.error, reset)
   if (catesQuery.error) return triggerErrorModal(catesQuery.error, reset)
   if (tagsQuery.error) return triggerErrorModal(tagsQuery.error, reset)

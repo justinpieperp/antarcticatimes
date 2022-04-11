@@ -25,7 +25,7 @@ const UserDetail = () => {
     onCompleted: () => triggerSuccessModal(() => {})
   })
 
-  if (userQuery.loading) return <Spin className='center' tip="Loading..." />
+  if (userQuery.loading) return <div className='container center'><Spin tip="Loading..." /></div>
   if (userQuery.error) return triggerErrorModal(userQuery.error)
   if (error) return triggerErrorModal(error, reset)
 

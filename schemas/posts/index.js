@@ -116,21 +116,24 @@ const resolvers = {
     },
 
     updatePost: async (_, args) => {
-      const currObj = await Tag.findById({ _id: args._id }).exec()
-      const currTags = currObj.tags.map((item, index) => { return item.tag })
+      const currObj = await Post.findOne({ _id: args._id }).exec()
+      console.log(args.user)
 
-      const existentTagsObj = await Tag.find({ tag: args.tags }).exec()
-      const existentTagsArray = await existentTagsObj.map(item => item.tag)
-      const nonexistentTagsArray = await args.tags.filter(item => !existentTagsArray.includes(item))
+      const allTagObjs = await Tag.find({}).exec()
+      const allTagsInDB = allTagObjs.map(item => { return item.tag }) // array
+      const seletedTags = args.tags // array
+      const nonexistentTags = await seletedTags.filter(item => !allTagsInDB.includes(item)) // array
 
-      const insertTags = await Promise.all(nonexistentTagsArray.map(item => {
+      const insertTags = await Promise.all(nonexistentTags.map(item => {
         return Tag.insertMany(
           { tag: item }
         )
       }))
 
-      const tagNames = await Tag.find({ tag: args.tags }).exec()
-      const tagIds = await tagNames.map(item => { return item._id })
+      const seletedTagsObj = await Tag.find({ tag: { $in: seletedTags } })
+      const tagIds = seletedTagsObj.map(item => { return item._id })
+
+      // console.log(tagIds)
 
       const updatedPost = await Post.findOneAndUpdate(
         { _id: args._id },
@@ -145,9 +148,9 @@ const resolvers = {
         }, { new: true }
       ).exec()
 
-      if (currObj.user !== args.user) {
+      if (currObj.user._id !== args.user) {
         await User.findOneAndUpdate(
-          { _id: currObj.user },
+          { _id: currObj.user._id },
           { $pull: { posts: args._id } },
           { new: true }
         ).exec()
@@ -159,9 +162,9 @@ const resolvers = {
         ).exec()
       }
 
-      if (currObj.category !== args.category) {
+      if (currObj.category._id !== args.category) {
         await Category.findOneAndUpdate(
-          { _id: currObj.category },
+          { _id: currObj.category._id },
           { $pull: { posts: args._id } },
           { new: true }
         ).exec()
@@ -174,7 +177,7 @@ const resolvers = {
       }
 
       await Tag.updateMany(
-        { _id: tagIds },
+        { _id: { $in: tagIds } },
         { $push: { posts: updatedPost._id } },
         { new: true }
       ).exec()

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import App from './App'
-import 'antd/dist/antd.min.css'
+import 'antd/dist/antd.less'
 import './assets/scss/base.scss'
 
 const client = new ApolloClient({

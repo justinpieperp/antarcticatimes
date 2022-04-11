@@ -32,15 +32,17 @@ mutation DeletePost($id: ID!) {
 
 const UPDATE_POST = gql`
 mutation UpdatePost(
-    $title: String!
-    $user: String!
+    $id: ID!
+    $title: String
+    $user: ID
     $description: String
-    $body: String!
+    $body: String
     $imageURL: String
-    $category: String!
+    $category: ID
     $tags: [String]
   ) {
     updatePost(
+        _id: $id
         title: $title
         user: $user
         description: $description
@@ -49,7 +51,7 @@ mutation UpdatePost(
         category: $category
         tags: $tags
       ) {
-        title
+        _id
       }
 }
 `
