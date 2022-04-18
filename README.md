@@ -16,10 +16,11 @@
 - GraphQL
 - Apollo-Server
 - other development tools include
-  - **eslint** to format code during development
-  - **nodemon** to automatically refresh page
-  - **bcryptjs** to encrypt password
-  - **dotenv** to extrac congif infomation from code
+  - eslint
+  - nodemon
+  - bcryptjs
+  - dotenv
+  - react-error-boundary
 
 <!-- USAGE EXAMPLES -->
 
@@ -29,6 +30,7 @@ Show useful examples of how a project can be used with screenshots, code example
 
 ### Home Page
 
+Get trending, recent and featured posts through this page.
 ![homepage]
 
 ### Posts Page

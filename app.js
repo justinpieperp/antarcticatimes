@@ -2,9 +2,21 @@ const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
 const { resolvers, typeDefs } = require('./schemas')
 require('./utils/db-config')
-
 const { GraphQLScalarType } = require('graphql')
 const { Kind } = require('graphql/language')
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.png')
+  }
+})
+
+const upload = multer({ storage: storage })
 
 // Apollo Server custom scalar: date
 // The getTime() method returns the number of milliseconds* since the Unix Epoch.
@@ -29,9 +41,25 @@ const resolver = {
 }
 
 const app = express()
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('hello from the graphql-db')
+  // res.send('hello from the graphql-db')
+  res.sendFile('index.html', { root: '.' })
+})
+
+app.post('/upload', upload.single('photo'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+  res.send({
+    status: true,
+    message: 'Upload Success',
+    data: {
+      name: req.file.originalname,
+      content: req.body
+    }
+  })
 })
 
 const server = new ApolloServer({

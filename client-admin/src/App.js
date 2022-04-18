@@ -8,11 +8,22 @@ import { CategoryList, CreateCategory, CategoryDetail } from './pages/categories
 import { TagList, CreateTag, TagDetail } from './pages/tags'
 import { Sider, Header, Footer } from './layouts'
 import { Layout } from 'antd'
+import { ErrorBoundary } from 'react-error-boundary'
 
 const App = () => {
   const { Content } = Layout
+  const ErrorFallback = ({ error, resetErrorBoundary }) => {
+    return (
+      <div role="alert">
+        <p>Something went wrong:</p>
+        <pre>{error.message}</pre>
+        <button onClick={resetErrorBoundary}>Try again</button>
+      </div>
+    )
+  }
 
   return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
     <Router>
       <div>
       <Route path="/login" component={Login}/>
@@ -43,6 +54,7 @@ const App = () => {
         </Layout>
       </div>
     </Router>
+    </ErrorBoundary>
   )
 }
 
