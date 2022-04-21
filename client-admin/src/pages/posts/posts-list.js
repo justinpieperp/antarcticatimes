@@ -4,11 +4,11 @@ import { Table, Space, Button, Spin } from 'antd'
 import { TableToolbar } from '../../layouts'
 import { GET_POSTS } from '../../GraphQL/queries'
 import { DELETE_POST } from '../../GraphQL/mutations'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { triggerErrorModal, triggerSuccessModal, TagRender } from '../components/common'
 
 const PostList = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const postsQuery = useQuery(GET_POSTS, { fetchPolicy: 'cache-and-network' })
   const [deletePost, { error, reset }] = useMutation(DELETE_POST, {
     onCompleted: () => triggerSuccessModal(postsQuery.refetch)
@@ -21,7 +21,7 @@ const PostList = () => {
   const posts = postsQuery.data.getPosts
 
   const clickEditButton = (id) => {
-    history.push(`/post/detail/${id}`)
+    navigate(`${id}/edit`)
   }
 
   const clickDeleteButton = (id) => {
@@ -141,21 +141,20 @@ const PostList = () => {
   ]
 
   return (
-  <div className='container'>
-    <TableToolbar
-        path={'/post/create'}
-        title={'Post List'}
-        showAddButton={true}
+    <div className='container'>
+      <TableToolbar
+          path={'/posts/create'}
+          title={'Post List'}
+          showAddButton={true}
+          />
+      <Table
+        columns={columns}
+        dataSource={posts}
+        scroll={{ x: '100%' }}
+        // Default position: 'bottomRight', pageSize: '10'
+        // pagination={{ position: 'bottomRight', pageSize: '7' }}
         />
-    <Table
-      columns={columns}
-      dataSource={posts}
-      scroll={{ x: '100%' }}
-      // Default position: 'bottomRight', pageSize: '10'
-      // pagination={{ position: 'bottomRight', pageSize: '7' }}
-      />
-  </div>
-
+    </div>
   )
 }
 

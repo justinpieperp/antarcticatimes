@@ -1,7 +1,8 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/dashboard'
 import Login from './pages/login'
+import NotFoundPage from './pages/error'
 import { PostList, CreatePost, PostDetail } from './pages/posts'
 import { UserList, CreateUser, UserDetail } from './pages/users'
 import { CategoryList, CreateCategory, CategoryDetail } from './pages/categories'
@@ -24,37 +25,47 @@ const App = () => {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-    <Router>
-      <div>
-      <Route path="/login" component={Login}/>
+      <BrowserRouter>
         <Layout className="layout-container">
           <Sider />
           <Layout className="main-container" >
             <Header />
             <Content className="content-container">
-            <Switch>
-                <Route path="/" exact component={Dashboard} />
-                <Route path="/dashboard" component={Dashboard} />
-                <Route path="/posts" component={PostList} />
-                <Route path="/post/create" component={CreatePost} />
-                <Route path="/post/detail/:id" component={PostDetail} />
-                <Route path="/users" component={UserList} />
-                <Route path="/user/create" component={CreateUser} />
-                <Route path="/user/detail/:id" component={UserDetail} />
-                <Route path="/categories" component={CategoryList} />
-                <Route path="/category/create" component={CreateCategory} />
-                <Route path="/category/detail/:id" component={CategoryDetail} />
-                <Route path="/tags" component={TagList} />
-                <Route path="/tag/create" component={CreateTag} />
-                <Route path="/tag/detail/:id" component={TagDetail} />
-                </Switch>
-              </Content>
-            <Footer />
-          </Layout>
+              <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/login" element={Login}/>
+                  {/* post router */}
+                  <Route path="posts">
+                    <Route index element={<PostList />} />
+                    <Route path=":id/edit" element={<PostDetail />} />
+                    <Route path="create" element={<CreatePost />} />
+                  </Route>
+                  {/* user router */}
+                  <Route path="users">
+                    <Route index element={<UserList />} />
+                    <Route path=":id/edit" element={<UserDetail />} />
+                    <Route path="create" element={<CreateUser />} />
+                  </Route>
+                  {/* cate router */}
+                  <Route path="categories">
+                    <Route index element={<CategoryList />} />
+                    <Route path=":id/edit" element={<CategoryDetail/>} />
+                    <Route path="create" element={<CreateCategory/>} />
+                  </Route>
+                  {/* tag router */}
+                  <Route path="tags">
+                    <Route index element={<TagList/>} />
+                    <Route path=":id/edit" element={<TagDetail/>} />
+                    <Route path="create" element={<CreateTag/>} />
+                  </Route>
+                  <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Content>
+          <Footer />
         </Layout>
-      </div>
-    </Router>
-    </ErrorBoundary>
+      </Layout>
+    </BrowserRouter>
+  </ErrorBoundary>
   )
 }
 

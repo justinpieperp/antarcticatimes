@@ -40,37 +40,37 @@ const Sider = () => {
 
           <SubMenu key="sub1" icon={<MailOutlined />} title="Posts">
             <Menu.Item key="11" icon={<ContainerOutlined />}>
-              <Link to='/posts'>Post List</Link>
+              <Link to='posts'>Post List</Link>
             </Menu.Item>
             <Menu.Item key="12" icon={<ContainerOutlined />}>
-              <Link to='/post/create'>Create New Post</Link>
+              <Link to='posts/create'>New Post</Link>
             </Menu.Item>
           </SubMenu>
 
           <SubMenu key="sub2" icon={<DesktopOutlined />} title="Users">
             <Menu.Item key="21" icon={<ContainerOutlined />}>
-              <Link to='/users'>User List</Link>
+              <Link to='users'>User List</Link>
             </Menu.Item>
             <Menu.Item key="22" icon={<ContainerOutlined />}>
-              <Link to='/user/create'>Create New User</Link>
+              <Link to='users/create'>New User</Link>
             </Menu.Item>
           </SubMenu>
 
           <SubMenu key="sub3" icon={<MailOutlined />} title="Categories">
             <Menu.Item key="31" icon={<ContainerOutlined />}>
-              <Link to='/categories'>Category List</Link>
+              <Link to='categories'>Category List</Link>
             </Menu.Item>
             <Menu.Item key="32" icon={<ContainerOutlined />}>
-              <Link to='/category/create'>Create New Category</Link>
+              <Link to='categories/create'>New Category</Link>
             </Menu.Item>
           </SubMenu>
 
           <SubMenu key="sub4" icon={<MailOutlined />} title="Tags">
             <Menu.Item key="41" icon={<ContainerOutlined />}>
-              <Link to='/tags'>Tag List</Link>
+              <Link to='tags'>Tag List</Link>
             </Menu.Item>
             <Menu.Item key="42" icon={<ContainerOutlined />}>
-              <Link to='/tag/create'>Create New Tag</Link>
+              <Link to='tags/create'>New Tag</Link>
             </Menu.Item>
           </SubMenu>
 

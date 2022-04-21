@@ -4,11 +4,11 @@ import { Table, Space, Button, Spin } from 'antd'
 import { TableToolbar } from '../../layouts'
 import { GET_USERS } from '../../GraphQL/queries'
 import { DELETE_USER } from '../../GraphQL/mutations'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { triggerErrorModal, triggerSuccessModal } from '../components/common'
 
 const UserList = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const height = window.innerHeight - 300
   const userQuery = useQuery(GET_USERS, { fetchPolicy: 'cache-and-network' })
   const [deleteUser, { error, reset }] = useMutation(DELETE_USER, {
@@ -20,7 +20,7 @@ const UserList = () => {
   if (error) return triggerErrorModal(error, reset)
 
   const clickEditButton = (id) => {
-    history.push(`/user/detail/${id}`)
+    navigate(`${id}/edit`)
   }
 
   const clickDeleteButton = (id) => {
@@ -83,7 +83,7 @@ const UserList = () => {
   return (
     <div className='container'>
       <TableToolbar
-        path={'/user/create'}
+        path={'/users/create'}
         title={'User List'}
         showAddButton={true}
         />

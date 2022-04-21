@@ -4,11 +4,11 @@ import { Table, Space, Button, Spin } from 'antd'
 import { GET_TAGS } from '../../GraphQL/queries'
 import { DELETE_TAG } from '../../GraphQL/mutations'
 import { TableToolbar } from '../../layouts'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { triggerErrorModal, triggerSuccessModal } from '../components/common'
 
 const TagList = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const tagsQuery = useQuery(GET_TAGS, { fetchPolicy: 'cache-and-network' })
   const [deleteTag, { error, reset }] = useMutation(DELETE_TAG, {
     onCompleted: () => {
@@ -23,7 +23,7 @@ const TagList = () => {
   const tagsData = tagsQuery.data.getTags
 
   const clickEditButton = async (id) => {
-    history.push(`/tag/detail/${id}`)
+    navigate(`${id}/edit`)
   }
   const clickDeleteButton = (tag) => {
     deleteTag({
@@ -84,7 +84,7 @@ const TagList = () => {
   return (
     <div className='container'>
       <TableToolbar
-        path={'/tag/create'}
+        path={'/tags/create'}
         title={'Tag List'}
         showAddButton={true}
         />

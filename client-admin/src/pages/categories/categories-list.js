@@ -4,12 +4,12 @@ import { Table, Space, Button, Spin } from 'antd'
 import { TableToolbar } from '../../layouts'
 import { GET_CATEGORIES } from '../../GraphQL/queries'
 import { DELETE_CATEGORY } from '../../GraphQL/mutations'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { capitalizedString } from '../components/_methods'
 import { triggerErrorModal, triggerSuccessModal } from '../components/common'
 
 const CategoryList = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const height = window.innerHeight - 300
   const { loading, data, refetch } = useQuery(GET_CATEGORIES, { fetchPolicy: 'cache-and-network' })
   const [deleteCategory, { error, reset }] = useMutation(DELETE_CATEGORY, {
@@ -20,7 +20,7 @@ const CategoryList = () => {
   if (error) triggerErrorModal(error, reset)
 
   const clickEditButton = id => {
-    history.push(`/category/detail/${id}`)
+    navigate(`${id}/edit`)
   }
 
   const clickDeleteButton = (id) => {
@@ -79,7 +79,7 @@ const CategoryList = () => {
   return (
     <div className='container'>
       <TableToolbar
-        path={'/category/create'}
+        path={'/categories/create'}
         title={'Category List'}
         showAddButton={true}
         />

@@ -77,65 +77,65 @@ const CreatePost = () => {
         showAddButton={false}
         />
 
-    <Form {...layout}
-        form={form}
-        name="createpost"
-        validateMessages={validateMessages}
-        onValuesChange={onValuesChange}
-        onFinish={submitForm}
-        autoComplete="off"
-        >
+      <Form {...layout}
+          form={form}
+          name="createpost"
+          validateMessages={validateMessages}
+          onValuesChange={onValuesChange}
+          onFinish={submitForm}
+          autoComplete="off"
+          >
 
-      <Form.Item label="title" name='title' rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
+        <Form.Item label="title" name='title' rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
 
-      <Form.Item label="user" name='user' rules={[{ required: true }]}>
-        <Select placeholder="Please select user">
-          {allUsers.map((user, index) =>
-            <Option value={user._id} key={index}>{user.username}</Option>
-          )}
-        </Select>
-      </Form.Item>
+        <Form.Item label="user" name='user' rules={[{ required: true }]}>
+          <Select placeholder="Please select user">
+            {allUsers.map((user, index) =>
+              <Option value={user._id} key={index}>{user.username}</Option>
+            )}
+          </Select>
+        </Form.Item>
 
-      <Form.Item label="description" name='description' >
-        <Input.TextArea showCount maxLength={100} />
-      </Form.Item>
+        <Form.Item label="description" name='description' >
+          <Input.TextArea showCount maxLength={100} />
+        </Form.Item>
 
-      <Form.Item label="body" name='body' rules={[{ required: true }]}>
-        <Input.TextArea showCount maxLength={5000} />
-      </Form.Item>
+        <Form.Item label="body" name='body' rules={[{ required: true }]}>
+          <Input.TextArea showCount maxLength={5000} />
+        </Form.Item>
 
-      <Form.Item label="category" name='category' rules={[{ required: true }]}>
-        <Select placeholder="Please select category">
-          {allCates.map((cate, index) =>
-            <Option value={cate._id} key={index}>{cate.category}</Option>
-          )}
-        </Select>
-      </Form.Item>
+        <Form.Item label="category" name='category' rules={[{ required: true }]}>
+          <Select placeholder="Please select category">
+            {allCates.map((cate, index) =>
+              <Option value={cate._id} key={index}>{cate.category}</Option>
+            )}
+          </Select>
+        </Form.Item>
 
-      <Form.Item
-        name="select-multiple"
-        label="Tags[multiple]"
-        >
-        <TagSelector
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-          allTags={allTags}
-          />
-      </Form.Item>
+        <Form.Item
+          name="select-multiple"
+          label="Tags[multiple]"
+          >
+          <TagSelector
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            allTags={allTags}
+            />
+        </Form.Item>
 
-      <Form.Item label="ImageURL" name='imageURL'>
-        <Input />
-      </Form.Item>
+        <Form.Item label="ImageURL" name='imageURL'>
+          <Input />
+        </Form.Item>
 
-      <Form.Item {...layoutWithoutLabel}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
-</div>
+        <Form.Item {...layoutWithoutLabel}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   )
 }
 
