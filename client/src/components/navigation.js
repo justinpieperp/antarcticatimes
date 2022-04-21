@@ -6,19 +6,19 @@ import { MenuOutlined, CloseOutlined } from '@ant-design/icons'
 const navLinks = [
     {
         title: 'HOME',
-        path: '/'
+        path: 'home'
     },
     {
         title: 'POSTS',
-        path: '/posts'
+        path: 'posts'
     },
     {
         title: 'ABOUT',
-        path: '/about'
+        path: 'about'
     },
     {
         title: 'LOGIN',
-        path: '/login'
+        path: 'login'
     }
 ]
 

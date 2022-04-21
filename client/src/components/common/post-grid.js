@@ -35,7 +35,7 @@ export default function PostGrid ({ posts, size }) {
                     <div key={index} className="post-container">
                         <figure>
                             {/* <Link to={`/post/${post?.id}`}> */}
-                            <Link to={post.link}>
+                            <Link to={post.imageURL}>
                                 <img src={require(`../../assets/images/${post.imageURL}`)} alt={post.imageURL}/>
                             </Link>
                         </figure>
@@ -55,7 +55,7 @@ export default function PostGrid ({ posts, size }) {
                         <p className="description-text">
                             {post.description}
                         </p>
-                        <Link to={post.link}>Read More...</Link>
+                        <Link to={post.imageURL}>Read More...</Link>
                     </div>
                 ))}
             </section>

@@ -1,25 +1,39 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Navigation from './components/navigation'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Home, Posts, About, Login } from './pages/'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ErrorBoundary } from 'react-error-boundary'
+
+const Home = React.lazy(() => import('./pages/home'))
+const Posts = React.lazy(() => import('./pages/posts'))
+const About = React.lazy(() => import('./pages/about'))
+const Login = React.lazy(() => import('./pages/login'))
 
 function App () {
-    return (
-        <Router>
-            <div>
-                <Navigation />
-                <Switch>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/home" component={Home} />
-                    <Route path="/posts" component={Posts} />
-                    <Route path="/about" component={About} />
-                    <Route path="/login" component={Login} />
-                    {/* <Route page='/:page' component={PageRendered} />
-            <Route page='/' render={() => <Redirect to="/home" />} />
-            <Route component={() => 404} /> */}
-                </Switch>
+    const ErrorFallback = ({ error, resetErrorBoundary }) => {
+        return (
+            <div role="alert">
+                <p>Something went wrong:</p>
+                <pre>{error.message}</pre>
+                <button onClick={resetErrorBoundary}>Try again</button>
             </div>
-        </Router>
+        )
+    }
+
+    return (
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Suspense fallback={<div style={{ fontSize: '100px' }}>Loading...</div>}>
+                <BrowserRouter>
+                    < Navigation />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="home" element={<Home />} />
+                        <Route path="posts" element={<Posts />} />
+                        <Route path="about" element={<About />} />
+                        <Route path="login" element={<Login />} />
+                    </Routes>
+                </BrowserRouter>
+            </Suspense>
+        </ErrorBoundary>
     )
 }
 
