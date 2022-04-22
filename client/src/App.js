@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 import Navigation from './components/navigation'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
+import { addCopyrightInfo } from './components/methods'
 
 const Home = React.lazy(() => import('./pages/home'))
 const Posts = React.lazy(() => import('./pages/posts'))
@@ -22,16 +23,18 @@ function App () {
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Suspense fallback={<div style={{ fontSize: '100px' }}>Loading...</div>}>
-                <BrowserRouter>
-                    < Navigation />
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="home" element={<Home />} />
-                        <Route path="posts" element={<Posts />} />
-                        <Route path="about" element={<About />} />
-                        <Route path="login" element={<Login />} />
-                    </Routes>
-                </BrowserRouter>
+                <div onCopy={addCopyrightInfo}>
+                    <BrowserRouter >
+                        < Navigation />
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="home" element={<Home />} />
+                            <Route path="posts" element={<Posts />} />
+                            <Route path="about" element={<About />} />
+                            <Route path="login" element={<Login />} />
+                        </Routes>
+                    </BrowserRouter>
+                </div>
             </Suspense>
         </ErrorBoundary>
     )
